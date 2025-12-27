@@ -1,18 +1,12 @@
-// --- 0. بيانات المشاريع ---
+// --- 0. بيانات المشاريع (Data) ---
 const projectsData = {
+    // === المشاريع الشخصية والتجارية ===
     'mystudies': {
         title: "myStudies (Graduation Project)",
         descEn: "A comprehensive academic assistant application for Jubail Industrial College students. Features include schedule management, GPA calculation, and academic calendar integration.",
         descAr: "تطبيق مساعد أكاديمي شامل لطلاب كلية الجبيل الصناعية. تشمل الميزات إدارة الجدول الدراسي، حساب المعدل التراكمي (GPA)، وربط التقويم الأكاديمي.",
         link: "https://github.com/Turki-Alshaikh/MyStudies---Graduation-project",
-        images: ["img/info.jpg" , "img/dashboard.png", "img/calendar.png", "img/gpa.png"]
-    },
-    'familyfeud': {
-        title: "Family Feud",
-        descEn: "Interactive web game for family gatherings. Includes an Admin Panel for adding custom questions and a settings menu to customize game colors and sounds.",
-        descAr: "لعبة ويب تفاعلية للتجمعات العائلية. تتضمن لوحة تحكم (Admin Panel) لإضافة أسئلة مخصصة، وقائمة إعدادات لتخصيص ألوان اللعبة والأصوات.",
-        link: "https://familyfeud25mfatihy.netlify.app/",
-        images: ["img/familyfued main.png", "img/familyfued in game.png", "img/familyfued game settings.png", "img/familyfuedadmin.png"]
+        images: ["img/info.jpg", "img/dashboard.png", "img/calendar.png", "img/gpa.png"]
     },
     'mfatihy': {
         title: "Mfatihy Store",
@@ -21,33 +15,42 @@ const projectsData = {
         link: "https://mfatihy.com",
         images: ["img/Mfatihylogo.webp"]
     },
+
+    // === الألعاب التفاعلية ===
+    'familyfeud': {
+        title: "Family Feud",
+        descEn: "Interactive web game for family gatherings. Includes an Admin Panel for adding custom questions and a settings menu to customize game colors and sounds.",
+        descAr: "لعبة ويب تفاعلية للتجمعات العائلية. تتضمن لوحة تحكم (Admin Panel) لإضافة أسئلة مخصصة، وقائمة إعدادات لتخصيص ألوان اللعبة والأصوات.",
+        link: "https://familyfeud25mfatihy.netlify.app/",
+        images: ["img/familyfued main.png", "img/familyfued in game.png", "img/familyfued game settings.png", "img/familyfuedadmin.png"]
+    },
     'khaliya': {
-        title: "Khaliya & Majalat Games",
-        descEn: "A collection of interactive group games including 'Letter Race' and 'Fields'. Inspired by popular TV shows, these games achieved significant commercial success with over 1,713 sales.",
-        descAr: "حزمة ألعاب جماعية تفاعلية تشمل 'سباق الحروف (خلية)' و 'مجالات'. مستوحاة من برامج تلفزيونية شهيرة، حققت نجاحاً تجارياً كبيراً وأكثر من 1713 مبيعات.",
+        title: "Group Games (Khaliya)",
+        descEn: "Interactive group games package including 'Khaliya' (Letter Race) and 'Majalat'. Inspired by 'Horoof wa Aloof', achieved over 1,713 sales.",
+        descAr: "حزمة ألعاب جماعية تفاعلية تشمل 'سباق الحروف (خلية)' و 'مجالات'. مستوحاة من برنامج 'حروف وألوف'، حققت نجاحاً تجارياً كبيراً وأكثر من 1713 مبيعات.",
         link: "https://mfatihy.com", 
-        images: ["img/khaliya_main.png", "img/khaliya_game.png"] 
+        images: ["img/khaliya_main.png", "img/khaliya_game.png"] // الصور الافتراضية
     },
     'different': {
         title: "The Odd One Out (المختلف)",
         descEn: "A social intelligence game where players receive a word except for one 'Odd One Out'. Players must use vague hints to identify the outsider without revealing the secret word.",
         descAr: "لعبة ذكاء اجتماعي يحصل فيها اللاعبون على كلمة سرية ما عدا لاعب واحد 'المختلف'. يجب على اللاعبين استخدام تلميحات لكشف المختلف دون فضح الكلمة.",
         link: "https://mfatihy.com",
-        images: ["img/different_main.png", "img/different_game.png"]
+        images: ["img/different_main.png", "img/different_game.png"] // الصور الافتراضية
     },
     'imposter': {
         title: "Imposter Game (الامبوستر)",
         descEn: "A thrilling social deduction game. Players complete tasks while trying to identify the 'Imposter' among them who is trying to sabotage the mission.",
         descAr: "لعبة استنتاج اجتماعي مثيرة. يقوم اللاعبون بمهام بينما يحاولون كشف 'الامبوستر' المتخفي بينهم والذي يحاول تخريب المهمة.",
         link: "https://mfatihy.com",
-        images: ["img/imposter_main.png", "img/imposter_game.png"]
+        images: ["img/imposter_main.png", "img/imposter_game.png"] // الصور الافتراضية
     },
     'footballxo': {
         title: "Football Tic Tac Toe (كورة XO)",
         descEn: "A strategic twist on the classic Tic Tac Toe. Combine your football knowledge with strategy to win the grid against your opponent.",
         descAr: "نسخة استراتيجية مطورة من لعبة 'إكس أو' الكلاسيكية بطابع كروي. ادمج معلوماتك الرياضية مع الاستراتيجية للفوز بالمربعات ضد خصمك.",
         link: "https://mfatihy.com",
-        images: ["img/footballxo_main.png", "img/footballxo_game.png"]
+        images: ["img/footballxo_main.png", "img/footballxo_game.png"] // الصور الافتراضية
     }
 };
 
@@ -193,8 +196,8 @@ const translations = {
         name: "TURKI ALSHAIKH",
         role: isGraduated ? "Computer Science Graduate & Entrepreneur" : "Computer Science Student & Entrepreneur",
         bio: isGraduated 
-             ? "Computer Science Graduate from Jubail Industrial College. Integrating advanced software development with e-commerce strategies. Founder of 'Mfatihy' digital store and developer of commercially successful interactive games."
-             : "Computer Science student at Jubail Industrial College (Class of 2026). Integrating advanced software development with e-commerce strategies. Founder of 'Mfatihy' digital store and developer of commercially successful interactive games.",
+                ? "Computer Science Graduate from Jubail Industrial College. Integrating advanced software development with e-commerce strategies. Founder of 'Mfatihy' digital store and developer of commercially successful interactive games."
+                : "Computer Science student at Jubail Industrial College (Class of 2026). Integrating advanced software development with e-commerce strategies. Founder of 'Mfatihy' digital store and developer of commercially successful interactive games.",
         exploreBtn: "View Projects",
         
         projectsTitle: "Featured Projects",
@@ -205,8 +208,8 @@ const translations = {
         proj3Desc: "An interactive web-based game tailored for family gatherings, simulating the famous TV show experience with custom features.",
         proj4Title: "Mfatihy Store",
         proj4Desc: "A fully operational e-commerce platform specializing in digital software licenses (Windows & Office) with automated delivery.",
-        proj2Title: "Letter Race Cell and Fields Game",
-        proj2Desc: "Letter Race Cell  Fields The Letter Race game from the popular Letters and Thousands show  and Letters with Aziz show Achieved commercial success with over 1,713 sales.",
+        proj2Title: "Group Games (Khaliya)",
+        proj2Desc: "Interactive group games package including 'Khaliya'. Achieved commercial success with over 1,713 sales.",
         projDiffTitle: "The Odd One Out",
         projDiffDesc: "A group intelligence game to discover the odd one out via hints.",
         projImpTitle: "Imposter Game",
@@ -245,8 +248,8 @@ const translations = {
         name: "تركي الشيخ",
         role: isGraduated ? "خريج علوم حاسب | رائد أعمال" : "طالب علوم حاسب | رائد أعمال",
         bio: isGraduated
-             ? "حاصل على بكالوريوس علوم الحاسب الآلي من كلية الجبيل الصناعية. أمتلك خبرة عملية تدمج بين الحلول التقنية المتقدمة واستراتيجيات التجارة الإلكترونية. مؤسس منصة 'مفاتيحي' الرقمية، ومطور مستقل لألعاب تفاعلية حققت نجاحاً تجارياً ملموساً."
-             : "طالب بكالوريوس علوم الحاسب الآلي في كلية الجبيل الصناعية (دفعة 2026). أمتلك خبرة عملية تدمج بين الحلول التقنية المتقدمة واستراتيجيات التجارة الإلكترونية. مؤسس منصة 'مفاتيحي' الرقمية، ومطور مستقل لألعاب تفاعلية حققت نجاحاً تجارياً ملموساً.",
+                ? "حاصل على بكالوريوس علوم الحاسب الآلي من كلية الجبيل الصناعية. أمتلك خبرة عملية تدمج بين الحلول التقنية المتقدمة واستراتيجيات التجارة الإلكترونية. مؤسس منصة 'مفاتيحي' الرقمية، ومطور مستقل لألعاب تفاعلية حققت نجاحاً تجارياً ملموساً."
+                : "طالب بكالوريوس علوم الحاسب الآلي في كلية الجبيل الصناعية (دفعة 2026). أمتلك خبرة عملية تدمج بين الحلول التقنية المتقدمة واستراتيجيات التجارة الإلكترونية. مؤسس منصة 'مفاتيحي' الرقمية، ومطور مستقل لألعاب تفاعلية حققت نجاحاً تجارياً ملموساً.",
         exploreBtn: "تصفح مشاريعي",
         
         projectsTitle: "أبرز الإنجازات والمشاريع",
@@ -257,8 +260,8 @@ const translations = {
         proj3Desc: "نسخة ويب تفاعلية من البرنامج الشهير 'فاميلي فيود'، صممت خصيصاً لإدارة المسابقات في التجمعات العائلية.",
         proj4Title: "منصة مفاتيحي",
         proj4Desc: "متجر إلكتروني متكامل متخصص في حلول البرمجيات والمفاتيح الرقمية (Windows & Office) مع نظام تسليم آلي.",
-        proj2Title: "لعبة خلية سباق الحروف و مجالات",
-        proj2Desc: "لعبه سباق الحروف من البرنامج الشهير حروف والوف و حروف مع عزيز'. حققت انتشاراً واسعاً وأكثر من 1713 عملية شراء ناجحة.",
+        proj2Title: "ألعاب تفاعلية (خلية)",
+        proj2Desc: "حزمة ألعاب تفاعلية تشمل 'خلية' و 'مجالات'. حققت انتشاراً واسعاً وأكثر من 1713 عملية شراء ناجحة.",
         projDiffTitle: "لعبة المختلف",
         projDiffDesc: "لعبة ذكاء جماعية تعتمد على التلميحات لكشف الشخص المختلف.",
         projImpTitle: "لعبة الامبوستر",

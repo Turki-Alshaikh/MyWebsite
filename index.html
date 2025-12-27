@@ -3,11 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Turki Alshaikh</title>
+    <title>Turki Alshaikh - Portfolio</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Baloo+Bhaijaan+2:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
-    <link rel="stylesheet" href="style.min.css">
+    <link rel="stylesheet" href="style.css">
 </head>
 <body class="dark">
 
@@ -56,7 +55,7 @@
                     
                     <div class="project-card" onclick="openProject('mystudies')">
                         <div class="project-img-container">
-                            <img src="img/myst.png" alt="myStudies" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'">
+                            <img src="img/dashboard.png" alt="myStudies" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'">
                             <div class="project-icon-placeholder" style="background: linear-gradient(135deg, #3b82f6, #1d4ed8); display: none;">
                                 <i class="fa-solid fa-graduation-cap"></i>
                             </div>
@@ -127,7 +126,7 @@
                         </div>
                         <div class="project-body">
                             <h3 class="project-title" data-key="projDiffTitle">The Odd One Out</h3>
-                            <p class="project-desc" data-key="projDiffDesc">A group intelligence game based on hints to discover the odd one out among players.</p>
+                            <p class="project-desc" data-key="projDiffDesc">A group intelligence game to discover the odd one out via hints.</p>
                             <div class="tags-row"><span class="tag">Logic</span> <span class="tag">Multiplayer</span></div>
                         </div>
                     </div>
@@ -141,7 +140,7 @@
                         </div>
                         <div class="project-body">
                             <h3 class="project-title" data-key="projImpTitle">Imposter Game</h3>
-                            <p class="project-desc" data-key="projImpDesc">A social deduction game where players work together to identify the hidden imposter.</p>
+                            <p class="project-desc" data-key="projImpDesc">Social deduction game to find the hidden imposter among the crew.</p>
                             <div class="tags-row"><span class="tag">Social</span> <span class="tag">Mystery</span></div>
                         </div>
                     </div>
@@ -155,7 +154,7 @@
                         </div>
                         <div class="project-body">
                             <h3 class="project-title" data-key="projXoTitle">Football Tic Tac Toe</h3>
-                            <p class="project-desc" data-key="projXoDesc">A strategic twist on the classic Tic Tac Toe game with football themes and rules.</p>
+                            <p class="project-desc" data-key="projXoDesc">Strategic Tic Tac Toe with a football theme twist.</p>
                             <div class="tags-row"><span class="tag">Strategy</span> <span class="tag">Sports</span></div>
                         </div>
                     </div>
@@ -246,8 +245,7 @@
                     <div class="main-image-frame">
                         <img id="mainImage" src="" alt="Main View">
                     </div>
-                    <div class="thumbnails-row" id="thumbsContainer">
-                    </div>
+                    <div class="thumbnails-row" id="thumbsContainer"></div>
                 </div>
                 <div class="modal-details">
                     <p id="modalDesc">Description goes here...</p>
@@ -257,6 +255,6 @@
         </div>
     </div>
 
-    <script src="script.min.js"></script>
+    <script src="script.js"></script>
 </body>
 </html>
