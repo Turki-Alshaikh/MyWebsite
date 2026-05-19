@@ -194,10 +194,10 @@ const translations = {
         logoName: "TURKI ALSHAIKH",
         hello: "Hello, I'm",
         name: "TURKI ALSHAIKH",
-        role: isGraduated ? "Computer Science Graduate & Entrepreneur" : "Computer Science Student & Entrepreneur",
+        role: isGraduated ? "Computer Science Graduate & Entrepreneur" : "Computer Science  & Entrepreneur",
         bio: isGraduated 
                 ? "Computer Science Graduate from Jubail Industrial College. Integrating advanced software development with e-commerce strategies. Founder of 'Mfatihy' digital store and developer of commercially successful interactive games."
-                : "Computer Science student at Jubail Industrial College (Class of 2026). Integrating advanced software development with e-commerce strategies. Founder of 'Mfatihy' digital store and developer of commercially successful interactive games.",
+                : "Computer Science  at Jubail Industrial College (Class of 2026). Integrating advanced software development with e-commerce strategies. Founder of 'Mfatihy' digital store and developer of commercially successful interactive games.",
         exploreBtn: "View Projects",
         
         projectsTitle: "Featured Projects",
@@ -246,7 +246,7 @@ const translations = {
         logoName: "تركي الشيخ",
         hello: "مرحباً، أنا",
         name: "تركي الشيخ",
-        role: isGraduated ? "خريج علوم حاسب | رائد أعمال" : "طالب علوم حاسب | رائد أعمال",
+        role: isGraduated ? "خريج علوم حاسب | رائد أعمال" : " علوم حاسب | رائد أعمال",
         bio: isGraduated
                 ? "حاصل على دبلوم في علوم الحاسب الآلي من كلية الجبيل الصناعية. أمتلك خبرة عملية تدمج بين الحلول التقنية المتقدمة واستراتيجيات التجارة الإلكترونية. مؤسس منصة 'مفاتيحي' الرقمية، ومطور مستقل لألعاب تفاعلية حققت نجاحاً تجارياً ملموساً."
                 : "  علوم الحاسب الآلي في كلية الجبيل الصناعية (دفعة 2026). أمتلك خبرة عملية تدمج بين الحلول التقنية المتقدمة واستراتيجيات التجارة الإلكترونية. مؤسس منصة 'مفاتيحي' الرقمية، ومطور مستقل لألعاب تفاعلية حققت نجاحاً تجارياً ملموساً.",
