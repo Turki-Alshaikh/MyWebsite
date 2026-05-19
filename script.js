@@ -21,7 +21,7 @@ const projectsData = {
         title: "Family Feud",
         descEn: "Interactive web game for family gatherings. Includes an Admin Panel for adding custom questions and a settings menu to customize game colors and sounds.",
         descAr: "لعبة ويب تفاعلية للتجمعات العائلية. تتضمن لوحة تحكم (Admin Panel) لإضافة أسئلة مخصصة، وقائمة إعدادات لتخصيص ألوان اللعبة والأصوات.",
-        link: "https://familyfeud25mfatihy.netlify.app/",
+        link: "",
         images: ["img/familyfued main.png", "img/familyfued in game.png", "img/familyfued game settings.png", "img/familyfuedadmin.png"]
     },
     'khaliya': {
@@ -31,27 +31,9 @@ const projectsData = {
         link: "https://mfatihy.com", 
         images: ["img/khaliya_main.png", "img/khaliya_game.png"] // الصور الافتراضية
     },
-    'different': {
-        title: "The Odd One Out (المختلف)",
-        descEn: "A social intelligence game where players receive a word except for one 'Odd One Out'. Players must use vague hints to identify the outsider without revealing the secret word.",
-        descAr: "لعبة ذكاء اجتماعي يحصل فيها اللاعبون على كلمة سرية ما عدا لاعب واحد 'المختلف'. يجب على اللاعبين استخدام تلميحات لكشف المختلف دون فضح الكلمة.",
-        link: "https://mfatihy.com",
-        images: ["img/different_main.png", "img/different_game.png"] // الصور الافتراضية
-    },
-    'imposter': {
-        title: "Imposter Game (الامبوستر)",
-        descEn: "A thrilling social deduction game. Players complete tasks while trying to identify the 'Imposter' among them who is trying to sabotage the mission.",
-        descAr: "لعبة استنتاج اجتماعي مثيرة. يقوم اللاعبون بمهام بينما يحاولون كشف 'الامبوستر' المتخفي بينهم والذي يحاول تخريب المهمة.",
-        link: "https://mfatihy.com",
-        images: ["img/imposter_main.png", "img/imposter_game.png"] // الصور الافتراضية
-    },
-    'footballxo': {
-        title: "Football Tic Tac Toe (كورة XO)",
-        descEn: "A strategic twist on the classic Tic Tac Toe. Combine your football knowledge with strategy to win the grid against your opponent.",
-        descAr: "نسخة استراتيجية مطورة من لعبة 'إكس أو' الكلاسيكية بطابع كروي. ادمج معلوماتك الرياضية مع الاستراتيجية للفوز بالمربعات ضد خصمك.",
-        link: "https://mfatihy.com",
-        images: ["img/footballxo_main.png", "img/footballxo_game.png"] // الصور الافتراضية
-    }
+
+ 
+
 };
 
 // --- 1. منطق التخرج ---
