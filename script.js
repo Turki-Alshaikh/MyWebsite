@@ -99,53 +99,72 @@ window.addEventListener('scroll', () => {
         }
     });
 });
-
-// Dynamic GitHub Fetching
+// Dynamic GitHub Fetching & Gemini AI Summarization
 const GITHUB_USER = 'Turki-Alshaikh';
 
 async function loadGithubProjects() {
     const grid = document.getElementById('githubGrid');
-    let formattedRepos = [];
-
+    
     try {
-        const res = await fetch(`https://gh-pinned-repos.egoist.dev/?username=${GITHUB_USER}`);
-        if(!res.ok) throw new Error("Pinned API failed");
-        const pinnedRepos = await res.json();
+        // جلب جميع المشاريع مرتبة حسب الأحدث (updated)
+        const res = await fetch(`https://api.github.com/users/${GITHUB_USER}/repos?sort=updated&per_page=20`);
+        if(!res.ok) throw new Error("GitHub API failed");
         
-        formattedRepos = pinnedRepos.map(r => ({
-            id: Math.random().toString(36).substr(2, 9),
-            name: r.repo,
-            html_url: r.link,
-            description: r.description || '',
-            language: r.language,
-            stargazers_count: r.stars,
-            isPinned: true
-        }));
+        let repos = await res.json();
+        // تصفية المشاريع واستبعاد الـ Forks
+        repos = repos.filter(r => !r.fork);
 
-    } catch (error) {
-        console.warn("Falling back to standard Github API...", error);
-        try {
-            const res = await fetch(`https://api.github.com/users/${GITHUB_USER}/repos?per_page=100`);
-            if(!res.ok) throw new Error("Fallback API failed");
-            let repos = await res.json();
-            
-            repos = repos.filter(r => !r.fork).sort((a,b) => b.stargazers_count - a.stargazers_count).slice(0, 6);
-            formattedRepos = repos.map(r => ({
-                id: r.id, name: r.name, html_url: r.html_url, description: r.description, 
-                language: r.language, stargazers_count: r.stargazers_count, isPinned: false
-            }));
-        } catch(fallbackError) {
-            grid.innerHTML = `<p class="col-span-full text-center text-red-400">Failed to load GitHub projects.</p>`;
+        if(repos.length === 0) {
+            grid.innerHTML = `<p class="col-span-full text-center text-gray-500/50">لا توجد مشاريع حالياً.</p>`;
             return;
         }
-    }
 
-    if(formattedRepos.length === 0) {
-        grid.innerHTML = `<p class="col-span-full text-center text-gray-500/50">No public projects found.</p>`;
+        // عرض الكروت في الموقع أولاً
+        renderGithubProjects(repos);
+        
+        // جلب التلخيص الذكي لكل مشروع بالترتيب (لتجنب حظر Gemini)
+        for (const repo of repos) {
+            await fetchAndInjectSummary(repo.name);
+            // الانتظار ثانية واحدة بين كل طلب وآخر لتجنب تجاوز الـ Rate Limit
+            await new Promise(r => setTimeout(r, 1000)); 
+        }
+
+    } catch (error) {
+        grid.innerHTML = `<p class="col-span-full text-center text-red-400">فشل في جلب المشاريع من GitHub.</p>`;
+    }
+}
+
+async function fetchAndInjectSummary(repoName) {
+    const descElement = document.getElementById(`desc-${repoName}`);
+    if (!descElement) return;
+
+    // 1. التحقق إذا كان الملخص محفوظاً مسبقاً في المتصفح لتوفير الطلبات
+    const cacheKey = `gemini_summary_${repoName}`;
+    const cachedSummary = localStorage.getItem(cacheKey);
+    
+    if (cachedSummary) {
+        descElement.innerHTML = cachedSummary;
         return;
     }
 
-    renderGithubProjects(formattedRepos);
+    // 2. إذا لم يكن محفوظاً، نطلبه من Netlify Function
+    try {
+        const response = await fetch('/.netlify/functions/summarize', {
+            method: 'POST',
+            body: JSON.stringify({ repoName })
+        });
+        
+        if (response.ok) {
+            const data = await response.json();
+            descElement.innerHTML = data.summary;
+            // حفظ الملخص في المتصفح للمرات القادمة
+            localStorage.setItem(cacheKey, data.summary);
+        } else {
+            descElement.innerHTML = "وصف المشروع التقني (فشل الاتصال بالذكاء الاصطناعي).";
+        }
+    } catch (e) {
+        descElement.innerHTML = "حدث خطأ في جلب الوصف.";
+    }
 }
 
 function renderGithubProjects(repos) {
@@ -156,14 +175,6 @@ function renderGithubProjects(repos) {
         const card = document.createElement('div');
         card.className = 'glass-card p-6 flex flex-col h-full relative overflow-hidden group hover:-translate-y-1 transition-transform duration-300';
         
-        if(repo.isPinned) {
-            card.innerHTML += `
-                <div class="absolute top-0 right-0 bg-white/5 text-white/40 text-xs px-3 py-1 rounded-bl-xl border-l border-b border-white/5 rtl:right-auto rtl:left-0 rtl:rounded-bl-none rtl:rounded-br-xl rtl:border-l-0 rtl:border-r transition-colors group-hover:text-primary group-hover:bg-primary/10 group-hover:border-primary/20" title="Pinned Repo">
-                    <i class="fa-solid fa-thumbtack transform -rotate-45"></i>
-                </div>
-            `;
-        }
-
         card.innerHTML += `
             <div class="flex justify-between items-start mb-4 pt-1">
                 <i class="fa-brands fa-github text-3xl text-white/30 group-hover:text-white/70 transition-colors"></i>
@@ -174,8 +185,8 @@ function renderGithubProjects(repos) {
             <h3 class="text-xl font-bold mb-3 text-white truncate" dir="ltr" title="${repo.name}">${repo.name}</h3>
             
             <div class="flex-grow mb-5">
-                <p class="text-sm text-gray-400 leading-relaxed min-h-[40px] line-clamp-3">
-                    ${repo.description || 'No description provided.'}
+                <p id="desc-${repo.name}" class="text-sm text-gray-400 leading-relaxed min-h-[40px] line-clamp-3">
+                    <i class="fa-solid fa-circle-notch fa-spin text-primary/50 mr-2"></i> جاري توليد الملخص بالذكاء الاصطناعي...
                 </p>
             </div>
             
