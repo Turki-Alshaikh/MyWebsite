@@ -50,134 +50,11 @@
         }
     </script>
 
-    <style>
-        :root {
-            --glass-bg: rgba(255, 255, 255, 0.03);
-            --glass-border: rgba(255, 255, 255, 0.05);
-        }
-
-        body {
-            background-color: #030712;
-            color: #f3f4f6;
-            margin: 0;
-            padding: 0;
-            -webkit-font-smoothing: antialiased;
-            overflow-x: hidden;
-            scroll-behavior: smooth; /* Smooth normal scrolling */
-        }
-
-        html[lang="ar"] body { font-family: 'Cairo', sans-serif; }
-        html[lang="en"] body { font-family: 'Outfit', sans-serif; letter-spacing: 0.01em; }
-
-        /* General Section Styling */
-        section {
-            position: relative;
-            padding: 6rem 1.5rem;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-        }
-
-        #projects {
-            min-height: auto;
-            padding-top: 8rem;
-            padding-bottom: 8rem;
-        }
-
-        #education {
-            min-height: 80vh;
-        }
-
-        /* Glassmorphism UI */
-        .glass-panel {
-            background: var(--glass-bg);
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
-            border: 1px solid var(--glass-border);
-            border-radius: 1.5rem;
-            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
-            transition: all 0.3s ease;
-        }
-
-        .glass-btn {
-            background: linear-gradient(135deg, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0.01) 100%);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255,255,255,0.1);
-            border-radius: 9999px;
-            padding: 0.75rem 1.5rem;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            gap: 0.5rem;
-            font-weight: 600;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            text-decoration: none;
-            cursor: pointer;
-        }
-
-        .glass-btn:hover {
-            background: rgba(255,255,255,0.1);
-            border-color: rgba(255,255,255,0.2);
-            transform: translateY(-2px);
-            box-shadow: 0 10px 20px -10px rgba(255,255,255,0.1);
-        }
-
-        .glass-card {
-            background: rgba(255, 255, 255, 0.02);
-            backdrop-filter: blur(12px);
-            border: 1px solid rgba(255, 255, 255, 0.04);
-            border-radius: 1.25rem;
-            transition: all 0.4s ease;
-        }
-
-        .glass-card:hover {
-            background: rgba(255, 255, 255, 0.04);
-            border-color: rgba(56, 189, 248, 0.3);
-            transform: translateY(-4px);
-            box-shadow: 0 10px 30px -10px rgba(56, 189, 248, 0.15);
-        }
-
-        /* Ambient Glowing Orbs */
-        .glow-orb {
-            position: fixed;
-            border-radius: 50%;
-            filter: blur(120px);
-            z-index: -1;
-            opacity: 0.4;
-            pointer-events: none;
-        }
-        .glow-1 { width: 40vw; height: 40vw; background: #38bdf8; top: -10%; left: -10%; animation-delay: 0s; }
-        .glow-2 { width: 35vw; height: 35vw; background: #c084fc; bottom: -10%; right: -10%; animation-delay: 2s; }
-        .glow-3 { width: 30vw; height: 30vw; background: #818cf8; top: 40%; left: 40%; opacity: 0.2; animation-delay: 4s; transform: translate(-50%, -50%); }
-
-        /* Text Gradients */
-        .text-gradient {
-            background-clip: text;
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-image: linear-gradient(to right, #ffffff, #9ca3af);
-        }
-        .text-gradient-primary {
-            background-clip: text;
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-image: linear-gradient(to right, #38bdf8, #818cf8);
-        }
-
-        /* Nav indicators */
-        .nav-dot {
-            width: 10px; height: 10px; border-radius: 50%;
-            background: rgba(255,255,255,0.2);
-            transition: all 0.3s ease;
-        }
-        .nav-dot.active {
-            background: #38bdf8;
-            transform: scale(1.5);
-            box-shadow: 0 0 10px #38bdf8;
-        }
-    </style>
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="style.css">
+    
+    <!-- Custom JS -->
+    <script src="script.js" defer></script>
 </head>
 <body>
 
@@ -208,7 +85,8 @@
         <!-- ================= SECTION 1: HERO ================= -->
         <section id="hero">
             <div class="max-w-4xl w-full text-center animate-float">
-                <h1 class="text-5xl md:text-7xl font-extrabold mb-4 text-gradient tracking-tight" data-i18n="hero_name">
+                <!-- تم زيادة المسافة في الأسفل من mb-4 إلى mb-14 -->
+                <h1 class="text-5xl md:text-7xl font-extrabold mb-14 text-gradient tracking-tight" data-i18n="hero_name">
                     تركي الشيخ
                 </h1>
                 
@@ -245,7 +123,7 @@
             <div class="max-w-6xl w-full grid grid-cols-1 lg:grid-cols-2 gap-8 items-stretch h-full">
                 
                 <!-- Bio Panel -->
-                <div class="glass-panel p-8 md:p-12 h-full flex flex-col justify-center">
+                <div class="glass-panel p-8 md:p-10 flex flex-col justify-center">
                     <div class="flex items-center gap-4 mb-6">
                         <i class="fa-solid fa-user-astronaut text-3xl text-primary"></i>
                         <h2 class="text-3xl font-bold text-white" data-i18n="about_title">نبذة عني</h2>
@@ -261,37 +139,94 @@
                     </div>
                 </div>
 
-                <!-- Skills Panel -->
-                <div class="glass-panel p-8 md:p-12 h-full flex flex-col justify-center bg-white/[0.01]">
+                <!-- Skills Panel (Updated from CV) -->
+                <div class="glass-panel p-8 md:p-10 flex flex-col bg-white/[0.01]">
                     <div class="flex items-center gap-4 mb-8">
                         <i class="fa-solid fa-code text-3xl text-secondary"></i>
                         <h2 class="text-3xl font-bold text-white" data-i18n="skills_title">التقنيات والأدوات</h2>
                     </div>
                     
-                    <div class="grid grid-cols-2 sm:grid-cols-3 gap-4">
-                        <div class="glass-card p-5 flex flex-col items-center gap-3 group">
-                            <i class="fa-brands fa-python text-4xl text-gray-500 group-hover:text-[#3776AB] transition-colors"></i>
-                            <span class="font-semibold text-sm">Python</span>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        
+                        <!-- Programming -->
+                        <div class="glass-card p-4 flex flex-col gap-3">
+                            <div class="flex items-center gap-2 text-primary">
+                                <i class="fa-solid fa-file-code"></i>
+                                <span class="font-bold text-sm" data-i18n="skills_prog">البرمجة</span>
+                            </div>
+                            <div class="flex flex-wrap gap-1.5" dir="ltr">
+                                <span class="px-2.5 py-1 bg-white/5 border border-white/10 rounded-md text-[11px] text-gray-300">Dart</span>
+                                <span class="px-2.5 py-1 bg-white/5 border border-white/10 rounded-md text-[11px] text-gray-300">Python</span>
+                                <span class="px-2.5 py-1 bg-white/5 border border-white/10 rounded-md text-[11px] text-gray-300">Java</span>
+                                <span class="px-2.5 py-1 bg-white/5 border border-white/10 rounded-md text-[11px] text-gray-300">JavaScript</span>
+                                <span class="px-2.5 py-1 bg-white/5 border border-white/10 rounded-md text-[11px] text-gray-300">HTML/CSS</span>
+                            </div>
                         </div>
-                        <div class="glass-card p-5 flex flex-col items-center gap-3 group">
-                            <i class="fa-brands fa-js text-4xl text-gray-500 group-hover:text-[#F7DF1E] transition-colors"></i>
-                            <span class="font-semibold text-sm">JavaScript</span>
+
+                        <!-- Frameworks & Architecture -->
+                        <div class="glass-card p-4 flex flex-col gap-3">
+                            <div class="flex items-center gap-2 text-secondary">
+                                <i class="fa-solid fa-layer-group"></i>
+                                <span class="font-bold text-sm" data-i18n="skills_fw">أطر العمل والهيكلة</span>
+                            </div>
+                            <div class="flex flex-wrap gap-1.5" dir="ltr">
+                                <span class="px-2.5 py-1 bg-white/5 border border-white/10 rounded-md text-[11px] text-gray-300">Flutter</span>
+                                <span class="px-2.5 py-1 bg-white/5 border border-white/10 rounded-md text-[11px] text-gray-300">BLoC Pattern</span>
+                                <span class="px-2.5 py-1 bg-white/5 border border-white/10 rounded-md text-[11px] text-gray-300">Layered Architecture</span>
+                            </div>
                         </div>
-                        <div class="glass-card p-5 flex flex-col items-center gap-3 group">
-                            <i class="fa-brands fa-html5 text-4xl text-gray-500 group-hover:text-[#E34F26] transition-colors"></i>
-                            <span class="font-semibold text-sm">HTML/CSS</span>
+
+                        <!-- Technical Support -->
+                        <div class="glass-card p-4 flex flex-col gap-3">
+                            <div class="flex items-center gap-2 text-accent">
+                                <i class="fa-solid fa-screwdriver-wrench"></i>
+                                <span class="font-bold text-sm" data-i18n="skills_tech">الدعم الفني</span>
+                            </div>
+                            <div class="flex flex-wrap gap-1.5" dir="ltr">
+                                <span class="px-2.5 py-1 bg-white/5 border border-white/10 rounded-md text-[11px] text-gray-300">HW/SW Troubleshooting</span>
+                                <span class="px-2.5 py-1 bg-white/5 border border-white/10 rounded-md text-[11px] text-gray-300">PC Assembly</span>
+                                <span class="px-2.5 py-1 bg-white/5 border border-white/10 rounded-md text-[11px] text-gray-300">Licensing</span>
+                            </div>
                         </div>
-                        <div class="glass-card p-5 flex flex-col items-center gap-3 group">
-                            <i class="fa-solid fa-database text-4xl text-gray-500 group-hover:text-[#4479A1] transition-colors"></i>
-                            <span class="font-semibold text-sm">SQL & SQLite</span>
+
+                        <!-- Databases & Cloud -->
+                        <div class="glass-card p-4 flex flex-col gap-3">
+                            <div class="flex items-center gap-2 text-primary">
+                                <i class="fa-solid fa-database"></i>
+                                <span class="font-bold text-sm" data-i18n="skills_db">قواعد البيانات والسحابة</span>
+                            </div>
+                            <div class="flex flex-wrap gap-1.5" dir="ltr">
+                                <span class="px-2.5 py-1 bg-white/5 border border-white/10 rounded-md text-[11px] text-gray-300">SQLite</span>
+                                <span class="px-2.5 py-1 bg-white/5 border border-white/10 rounded-md text-[11px] text-gray-300">SQL</span>
+                                <span class="px-2.5 py-1 bg-white/5 border border-white/10 rounded-md text-[11px] text-gray-300">Firebase</span>
+                                <span class="px-2.5 py-1 bg-white/5 border border-white/10 rounded-md text-[11px] text-gray-300">AWS</span>
+                            </div>
                         </div>
-                        <div class="glass-card p-5 flex flex-col items-center gap-3 group">
-                            <i class="fa-brands fa-java text-4xl text-gray-500 group-hover:text-[#ED8B00] transition-colors"></i>
-                            <span class="font-semibold text-sm">Java</span>
+
+                        <!-- AI & Automation -->
+                        <div class="glass-card p-4 flex flex-col gap-3">
+                            <div class="flex items-center gap-2 text-secondary">
+                                <i class="fa-solid fa-robot"></i>
+                                <span class="font-bold text-sm" data-i18n="skills_ai">الذكاء الاصطناعي والأتمتة</span>
+                            </div>
+                            <div class="flex flex-wrap gap-1.5" dir="ltr">
+                                <span class="px-2.5 py-1 bg-white/5 border border-white/10 rounded-md text-[11px] text-gray-300">Google ML Kit</span>
+                                <span class="px-2.5 py-1 bg-white/5 border border-white/10 rounded-md text-[11px] text-gray-300">Claude AI</span>
+                                <span class="px-2.5 py-1 bg-white/5 border border-white/10 rounded-md text-[11px] text-gray-300">Automatio.ai</span>
+                            </div>
                         </div>
-                        <div class="glass-card p-5 flex flex-col items-center gap-3 group">
-                            <svg viewBox="0 0 24 24" width="36" height="36" fill="currentColor" class="text-gray-500 group-hover:text-[#02569B] transition-colors"><path d="M14.314 0L2.3 12 6 15.7 21.684.013h-7.357zm.014 11.072L7.857 17.53l3.67 3.67 9.07-9.068h-6.269zm2.34 7.34l-2.08 2.08-3.67-3.67 2.08-2.08 3.67 3.67z"/></svg>
-                            <span class="font-semibold text-sm">Flutter</span>
+
+                        <!-- System Analysis -->
+                        <div class="glass-card p-4 flex flex-col gap-3">
+                            <div class="flex items-center gap-2 text-accent">
+                                <i class="fa-solid fa-chart-pie"></i>
+                                <span class="font-bold text-sm" data-i18n="skills_sys">تحليل الأنظمة</span>
+                            </div>
+                            <div class="flex flex-wrap gap-1.5" dir="ltr">
+                                <span class="px-2.5 py-1 bg-white/5 border border-white/10 rounded-md text-[11px] text-gray-300">Lucidchart</span>
+                                <span class="px-2.5 py-1 bg-white/5 border border-white/10 rounded-md text-[11px] text-gray-300">GitHub</span>
+                                <span class="px-2.5 py-1 bg-white/5 border border-white/10 rounded-md text-[11px] text-gray-300">DFD/ERD Design</span>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -393,195 +328,5 @@
 
     </main>
 
-    <script>
-        document.getElementById('year').innerText = new Date().getFullYear();
-
-        const translations = {
-            ar: {
-                hero_name: "تركي الشيخ", 
-                hero_title_1: "خريج علوم حاسب", 
-                hero_title_2: "أخصائي تقنية معلومات",
-                location: "جدة، المملكة العربية السعودية",
-                about_title: "نبذة عني",
-                about_p1: `خريج علوم حاسب بشغف كبير تجاه تطوير البرمجيات، الشبكات، والبنية التحتية لتقنية المعلومات. أدمج بين المهارات التقنية القوية وعقلية الأعمال، وهو ما تُرجم عملياً بتأسيس وتطوير منصة <a href="https://mfatihy.com/" target="_blank" class="text-primary hover:text-white font-bold transition-colors">مفاتيحي (Mfatihy)</a>.`,
-                about_p2: "أمتلك مهارة عالية في برمجة البايثون، تطوير واجهات الويب، إدارة قواعد البيانات، وتوظيف أدوات الذكاء الاصطناعي لتسريع حل المشكلات التقنية وتحسين سير العمل.",
-                skills_title: "التقنيات والأدوات",
-                projects_title: "أبرز المشاريع",
-                mfatihy_role: "المؤسس والمطور الرئيسي", 
-                mfatihy_p1: "بناء وتوسيع منصة رقمية مؤتمتة لتوزيع البرمجيات.", 
-                mfatihy_p2: "هندسة نظام تسليم آلي متكامل باستخدام تقنيات الـ Webhooks.",
-                mystudies_role: "مطور برمجيات", 
-                mystudies_p1: "تطوير تطبيق جوال متكامل باستخدام Flutter و Dart بنظام BLOC.", 
-                mystudies_p2: "دمج تقنيات الذكاء الاصطناعي (Google ML Kit) لاستخراج نصوص المواعيد آلياً.",
-                git_projects: "المشاريع المثبتة على GitHub", 
-                loading: "جاري جلب المشاريع من خوادم GitHub...",
-                edu_degree: "دبلوم في علوم حاسب", 
-                edu_school: "كلية الجبيل الصناعية", 
-                edu_cs: "Computer Science",
-                edu_date: "تاريخ التخرج: أبريل 2026",
-            },
-            en: {
-                hero_name: "Turki Alshaikh", 
-                hero_title_1: "CS Graduate", 
-                hero_title_2: "IT Specialist",
-                location: "Jeddah, Saudi Arabia",
-                about_title: "About Me",
-                about_p1: `Dedicated Computer Science graduate with a strong technical foundation in software development and IT infrastructure. I possess a unique blend of technical skills and business acumen, demonstrated by successfully founding and automating <a href="https://mfatihy.com/" target="_blank" class="text-primary hover:text-white font-bold transition-colors">Mfatihy</a>.`,
-                about_p2: "Highly skilled in Python scripting, front-end development, database management, and leveraging AI tools to accelerate problem-solving and optimize workflows.",
-                skills_title: "Tech Stack & Tools",
-                projects_title: "Featured Projects",
-                mfatihy_role: "Founder & Lead Developer", 
-                mfatihy_p1: "Built and scaled an automated digital software distribution platform.", 
-                mfatihy_p2: "Engineered an integrated auto-delivery system via webhooks.",
-                mystudies_role: "Software Developer", 
-                mystudies_p1: "Developed a cross-platform mobile application using Flutter & Dart (BLoC).", 
-                mystudies_p2: "Integrated Google ML Kit (OCR) to automate extraction of exam deadlines.",
-                git_projects: "GitHub Pinned Repos", 
-                loading: "Fetching pinned repos from GitHub...",
-                edu_degree: "Associate Degree in Computer Science", 
-                edu_school: "Jubail Industrial College", 
-                edu_cs: "Computer Science",
-                edu_date: "Graduation: April 2026",
-            }
-        };
-
-        let currentLang = 'ar';
-        
-        function toggleLanguage() {
-            currentLang = currentLang === 'ar' ? 'en' : 'ar';
-            const htmlTag = document.documentElement;
-            htmlTag.lang = currentLang;
-            htmlTag.dir = currentLang === 'ar' ? 'rtl' : 'ltr';
-            
-            document.querySelectorAll('[data-i18n]').forEach(el => {
-                const key = el.getAttribute('data-i18n');
-                if(translations[currentLang][key]) {
-                    el.innerHTML = translations[currentLang][key];
-                }
-            });
-        }
-
-        // Active Dot Navigation based on Normal Scroll
-        const sections = document.querySelectorAll('section');
-        const navDots = document.querySelectorAll('.nav-dot');
-
-        window.addEventListener('scroll', () => {
-            let current = '';
-            sections.forEach(section => {
-                const sectionTop = section.offsetTop;
-                const sectionHeight = section.clientHeight;
-                if (pageYOffset >= (sectionTop - sectionHeight / 3)) {
-                    current = section.getAttribute('id');
-                }
-            });
-
-            navDots.forEach(dot => {
-                dot.classList.remove('active');
-                if (dot.getAttribute('data-target') === current) {
-                    dot.classList.add('active');
-                }
-            });
-        });
-
-        // Dynamic GitHub Fetching
-        const GITHUB_USER = 'Turki-Alshaikh';
-
-        async function loadGithubProjects() {
-            const grid = document.getElementById('githubGrid');
-            let formattedRepos = [];
-
-            try {
-                const res = await fetch(`https://gh-pinned-repos.egoist.dev/?username=${GITHUB_USER}`);
-                if(!res.ok) throw new Error("Pinned API failed");
-                const pinnedRepos = await res.json();
-                
-                formattedRepos = pinnedRepos.map(r => ({
-                    id: Math.random().toString(36).substr(2, 9),
-                    name: r.repo,
-                    html_url: r.link,
-                    description: r.description || '',
-                    language: r.language,
-                    stargazers_count: r.stars,
-                    isPinned: true
-                }));
-
-            } catch (error) {
-                console.warn("Falling back to standard Github API...", error);
-                try {
-                    const res = await fetch(`https://api.github.com/users/${GITHUB_USER}/repos?per_page=100`);
-                    if(!res.ok) throw new Error("Fallback API failed");
-                    let repos = await res.json();
-                    
-                    repos = repos.filter(r => !r.fork).sort((a,b) => b.stargazers_count - a.stargazers_count).slice(0, 6);
-                    formattedRepos = repos.map(r => ({
-                        id: r.id, name: r.name, html_url: r.html_url, description: r.description, 
-                        language: r.language, stargazers_count: r.stargazers_count, isPinned: false
-                    }));
-                } catch(fallbackError) {
-                    grid.innerHTML = `<p class="col-span-full text-center text-red-400">Failed to load GitHub projects.</p>`;
-                    return;
-                }
-            }
-
-            if(formattedRepos.length === 0) {
-                grid.innerHTML = `<p class="col-span-full text-center text-gray-500/50">No public projects found.</p>`;
-                return;
-            }
-
-            renderGithubProjects(formattedRepos);
-        }
-
-        function renderGithubProjects(repos) {
-            const grid = document.getElementById('githubGrid');
-            grid.innerHTML = ''; 
-
-            repos.forEach(repo => {
-                const card = document.createElement('div');
-                card.className = 'glass-card p-6 flex flex-col h-full relative overflow-hidden group hover:-translate-y-1 transition-transform duration-300';
-                
-                if(repo.isPinned) {
-                    card.innerHTML += `
-                        <div class="absolute top-0 right-0 bg-white/5 text-white/40 text-xs px-3 py-1 rounded-bl-xl border-l border-b border-white/5 rtl:right-auto rtl:left-0 rtl:rounded-bl-none rtl:rounded-br-xl rtl:border-l-0 rtl:border-r transition-colors group-hover:text-primary group-hover:bg-primary/10 group-hover:border-primary/20" title="Pinned Repo">
-                            <i class="fa-solid fa-thumbtack transform -rotate-45"></i>
-                        </div>
-                    `;
-                }
-
-                card.innerHTML += `
-                    <div class="flex justify-between items-start mb-4 pt-1">
-                        <i class="fa-brands fa-github text-3xl text-white/30 group-hover:text-white/70 transition-colors"></i>
-                        <a href="${repo.html_url}" target="_blank" class="w-8 h-8 rounded-full bg-white/5 flex items-center justify-center text-white/40 hover:text-white hover:bg-white/20 transition-all">
-                            <i class="fa-solid fa-arrow-up-right-from-square text-xs"></i>
-                        </a>
-                    </div>
-                    <h3 class="text-xl font-bold mb-3 text-white truncate" dir="ltr" title="${repo.name}">${repo.name}</h3>
-                    
-                    <div class="flex-grow mb-5">
-                        <p class="text-sm text-gray-400 leading-relaxed min-h-[40px] line-clamp-3">
-                            ${repo.description || 'No description provided.'}
-                        </p>
-                    </div>
-                    
-                    <div class="mt-auto pt-4 border-t border-white/5 flex items-center justify-between text-xs font-semibold text-gray-500" dir="ltr">
-                        <span class="flex items-center gap-1.5 px-2 py-1 rounded-md bg-white/5">
-                            <i class="fa-solid fa-circle text-[8px] ${repo.language ? 'text-primary/70' : 'text-gray-600'}"></i>
-                            ${repo.language || 'Code'}
-                        </span>
-                        <span class="flex items-center gap-1.5 px-2 py-1 rounded-md bg-white/5 hover:text-yellow-500/80 transition-colors">
-                            <i class="fa-solid fa-star"></i>
-                            ${repo.stargazers_count}
-                        </span>
-                    </div>
-                `;
-                
-                grid.appendChild(card);
-            });
-        }
-
-        document.addEventListener('DOMContentLoaded', () => {
-            setTimeout(loadGithubProjects, 300);
-        });
-
-    </script>
 </body>
 </html>
