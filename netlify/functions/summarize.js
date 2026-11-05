@@ -1,5 +1,3 @@
-const fetch = require('node-fetch');
-
 exports.handler = async function(event, context) {
     if (event.httpMethod !== "POST") {
         return { statusCode: 405, body: "Method Not Allowed" };
@@ -44,12 +42,12 @@ exports.handler = async function(event, context) {
 
         const data = await geminiRes.json();
 
-        // 4. التقاط رسالة الخطأ من Gemini إن وجدت (هذا ما سيحل مشكلتك)
+        // 4. التقاط رسالة الخطأ من Gemini إن وجدت
         if (data.error) {
             console.error(`Gemini API Error for ${repoName}:`, data.error.message);
             return {
-                statusCode: 200, // نرجع 200 حتى لا ينهار المتصفح
-                body: JSON.stringify({ summary: `حدث خطأ من الذكاء الاصطناعي: ${data.error.message}` })
+                statusCode: 200, 
+                body: JSON.stringify({ summary: `رسالة من الذكاء الاصطناعي: ${data.error.message}` })
             };
         }
 
