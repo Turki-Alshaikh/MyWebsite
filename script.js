@@ -99,7 +99,46 @@ window.addEventListener('scroll', () => {
         }
     });
 });
-// Dynamic GitHub Fetching & Gemini AI Summarization
+let globalRepos = []; // مصفوفة لحفظ المشاريع مؤقتاً لتسهيل تبديل اللغة
+
+// تعديل دالة تغيير اللغة لتحديث المشاريع فوراً
+function toggleLanguage() {
+    currentLang = currentLang === 'ar' ? 'en' : 'ar';
+    const htmlTag = document.documentElement;
+    htmlTag.lang = currentLang;
+    htmlTag.dir = currentLang === 'ar' ? 'rtl' : 'ltr';
+    
+    document.querySelectorAll('[data-i18n]').forEach(el => {
+        const key = el.getAttribute('data-i18n');
+        if(translations[currentLang][key]) {
+            el.innerHTML = translations[currentLang][key];
+        }
+    });
+
+    // تحديث لغة المشاريع عند الضغط على زر التبديل
+    if (globalRepos.length > 0) {
+        updateSummariesLanguage();
+    }
+}
+
+async function updateSummariesLanguage() {
+    // إظهار علامة التحميل لجميع المشاريع
+    globalRepos.forEach(repo => {
+        const descElement = document.getElementById(`desc-${repo.name}`);
+        if (descElement) {
+            descElement.innerHTML = `<i class="fa-solid fa-circle-notch fa-spin text-primary/50 mr-2"></i> ${currentLang === 'ar' ? 'جاري جلب الوصف...' : 'Fetching summary...'}`;
+        }
+    });
+
+    // جلب الملخصات باللغة الجديدة (من السيرفر)
+    for (const repo of globalRepos) {
+        await fetchAndInjectSummary(repo.name, repo.description, currentLang);
+    }
+}
+
+// ----------------------------------------------------
+// دوال جلب المشاريع من GitHub
+// ----------------------------------------------------
 const GITHUB_USER = 'Turki-Alshaikh';
 
 async function loadGithubProjects() {
@@ -110,21 +149,20 @@ async function loadGithubProjects() {
         if(!res.ok) throw new Error("GitHub API failed");
         
         let repos = await res.json();
-        repos = repos.filter(r => !r.fork);
+        globalRepos = repos.filter(r => !r.fork); // حفظ المشاريع في المتغير العام
 
-        if(repos.length === 0) {
+        if(globalRepos.length === 0) {
             grid.innerHTML = `<p class="col-span-full text-center text-gray-500/50">لا توجد مشاريع حالياً.</p>`;
             return;
         }
 
-        // عرض الكروت
-        renderGithubProjects(repos);
+        renderGithubProjects(globalRepos);
         
-        // جلب التلخيص الذكي
-        for (const repo of repos) {
-            await fetchAndInjectSummary(repo.name, repo.description);
-            // زيادة وقت الانتظار إلى 3 ثوانٍ لتخفيف الضغط على خوادم Gemini
-            await new Promise(r => setTimeout(r, 3000)); 
+        // جلب الملخصات للمرة الأولى (بالتتابع)
+        for (const repo of globalRepos) {
+            await fetchAndInjectSummary(repo.name, repo.description, currentLang);
+            // انتظار بسيط لتخفيف الطلبات لو لم تكن محفوظة
+            await new Promise(r => setTimeout(r, 500)); 
         }
 
     } catch (error) {
@@ -132,41 +170,31 @@ async function loadGithubProjects() {
     }
 }
 
-async function fetchAndInjectSummary(repoName, originalDescription) {
+async function fetchAndInjectSummary(repoName, originalDescription, targetLang) {
     const descElement = document.getElementById(`desc-${repoName}`);
     if (!descElement) return;
-
-    const cacheKey = `gemini_summary_${repoName}`;
-    const cachedSummary = localStorage.getItem(cacheKey);
-    
-    // إذا كان الملخص محفوظاً، لا نفعل شيئاً (تم عرضه مسبقاً)
-    if (cachedSummary) return;
 
     try {
         const response = await fetch('/.netlify/functions/summarize', {
             method: 'POST',
-            body: JSON.stringify({ repoName })
+            body: JSON.stringify({ repoName, lang: targetLang })
         });
         
         if (response.ok) {
             const data = await response.json();
             const summary = data.summary;
             
-            // حفظ الملخص فقط إذا كان ناجحاً (لا يحتوي على رسائل خطأ)
-            if (!summary.includes("رسالة من الذكاء") && !summary.includes("تعذر") && !summary.includes("خطأ")) {
-                descElement.innerHTML = summary;
-                localStorage.setItem(cacheKey, summary); // حفظ في المتصفح للأبد
+            // في حال وجود خطأ من الذكاء الاصطناعي، يتم عرض الوصف الأساسي
+            if (summary.includes("Error:") || summary.includes("تعذر") || summary.includes("Failed")) {
+                descElement.innerHTML = originalDescription || (targetLang === 'ar' ? "وصف المشروع غير متاح." : "Description not available.");
             } else {
-                // إذا رد الذكاء بخطأ (مثل High Demand)، نضع الوصف الأساسي للمشروع
-                descElement.innerHTML = originalDescription || "وصف المشروع غير متاح.";
+                descElement.innerHTML = summary;
             }
         } else {
-            // في حال فشل الاتصال بخادم Netlify
-            descElement.innerHTML = originalDescription || "وصف المشروع غير متاح.";
+            descElement.innerHTML = originalDescription || (targetLang === 'ar' ? "وصف المشروع غير متاح." : "Description not available.");
         }
     } catch (e) {
-        // في حال انقطاع الاتصال
-        descElement.innerHTML = originalDescription || "وصف المشروع غير متاح.";
+        descElement.innerHTML = originalDescription || (targetLang === 'ar' ? "وصف المشروع غير متاح." : "Description not available.");
     }
 }
 
@@ -178,9 +206,7 @@ function renderGithubProjects(repos) {
         const card = document.createElement('div');
         card.className = 'glass-card p-6 flex flex-col h-full relative overflow-hidden group hover:-translate-y-1 transition-transform duration-300';
         
-        // التحقق مما إذا كان الملخص محفوظاً لعرضه مباشرة بدون رسالة "جاري التوليد"
-        const cachedSummary = localStorage.getItem(`gemini_summary_${repo.name}`);
-        const initialText = cachedSummary ? cachedSummary : `<i class="fa-solid fa-circle-notch fa-spin text-primary/50 mr-2"></i> جاري التلخيص بالذكاء الاصطناعي...`;
+        const loadingText = currentLang === 'ar' ? 'جاري التلخيص بالذكاء الاصطناعي...' : 'AI Summarizing...';
 
         card.innerHTML += `
             <div class="flex justify-between items-start mb-4 pt-1">
@@ -193,7 +219,7 @@ function renderGithubProjects(repos) {
             
             <div class="flex-grow mb-5">
                 <p id="desc-${repo.name}" class="text-sm text-gray-400 leading-relaxed min-h-[40px] line-clamp-3">
-                    ${initialText}
+                    <i class="fa-solid fa-circle-notch fa-spin text-primary/50 mr-2"></i> ${loadingText}
                 </p>
             </div>
             
