@@ -106,12 +106,10 @@ async function loadGithubProjects() {
     const grid = document.getElementById('githubGrid');
     
     try {
-        // جلب جميع المشاريع مرتبة حسب الأحدث (updated)
         const res = await fetch(`https://api.github.com/users/${GITHUB_USER}/repos?sort=updated&per_page=20`);
         if(!res.ok) throw new Error("GitHub API failed");
         
         let repos = await res.json();
-        // تصفية المشاريع واستبعاد الـ Forks
         repos = repos.filter(r => !r.fork);
 
         if(repos.length === 0) {
@@ -119,14 +117,14 @@ async function loadGithubProjects() {
             return;
         }
 
-        // عرض الكروت في الموقع أولاً
+        // عرض الكروت
         renderGithubProjects(repos);
         
-        // جلب التلخيص الذكي لكل مشروع بالترتيب (لتجنب حظر Gemini)
+        // جلب التلخيص الذكي
         for (const repo of repos) {
-            await fetchAndInjectSummary(repo.name);
-            // الانتظار ثانية واحدة بين كل طلب وآخر لتجنب تجاوز الـ Rate Limit
-            await new Promise(r => setTimeout(r, 1000)); 
+            await fetchAndInjectSummary(repo.name, repo.description);
+            // زيادة وقت الانتظار إلى 3 ثوانٍ لتخفيف الضغط على خوادم Gemini
+            await new Promise(r => setTimeout(r, 3000)); 
         }
 
     } catch (error) {
@@ -134,20 +132,16 @@ async function loadGithubProjects() {
     }
 }
 
-async function fetchAndInjectSummary(repoName) {
+async function fetchAndInjectSummary(repoName, originalDescription) {
     const descElement = document.getElementById(`desc-${repoName}`);
     if (!descElement) return;
 
-    // 1. التحقق إذا كان الملخص محفوظاً مسبقاً في المتصفح لتوفير الطلبات
     const cacheKey = `gemini_summary_${repoName}`;
     const cachedSummary = localStorage.getItem(cacheKey);
     
-    if (cachedSummary) {
-        descElement.innerHTML = cachedSummary;
-        return;
-    }
+    // إذا كان الملخص محفوظاً، لا نفعل شيئاً (تم عرضه مسبقاً)
+    if (cachedSummary) return;
 
-    // 2. إذا لم يكن محفوظاً، نطلبه من Netlify Function
     try {
         const response = await fetch('/.netlify/functions/summarize', {
             method: 'POST',
@@ -156,14 +150,23 @@ async function fetchAndInjectSummary(repoName) {
         
         if (response.ok) {
             const data = await response.json();
-            descElement.innerHTML = data.summary;
-            // حفظ الملخص في المتصفح للمرات القادمة
-            localStorage.setItem(cacheKey, data.summary);
+            const summary = data.summary;
+            
+            // حفظ الملخص فقط إذا كان ناجحاً (لا يحتوي على رسائل خطأ)
+            if (!summary.includes("رسالة من الذكاء") && !summary.includes("تعذر") && !summary.includes("خطأ")) {
+                descElement.innerHTML = summary;
+                localStorage.setItem(cacheKey, summary); // حفظ في المتصفح للأبد
+            } else {
+                // إذا رد الذكاء بخطأ (مثل High Demand)، نضع الوصف الأساسي للمشروع
+                descElement.innerHTML = originalDescription || "وصف المشروع غير متاح.";
+            }
         } else {
-            descElement.innerHTML = "وصف المشروع التقني (فشل الاتصال بالذكاء الاصطناعي).";
+            // في حال فشل الاتصال بخادم Netlify
+            descElement.innerHTML = originalDescription || "وصف المشروع غير متاح.";
         }
     } catch (e) {
-        descElement.innerHTML = "حدث خطأ في جلب الوصف.";
+        // في حال انقطاع الاتصال
+        descElement.innerHTML = originalDescription || "وصف المشروع غير متاح.";
     }
 }
 
@@ -175,6 +178,10 @@ function renderGithubProjects(repos) {
         const card = document.createElement('div');
         card.className = 'glass-card p-6 flex flex-col h-full relative overflow-hidden group hover:-translate-y-1 transition-transform duration-300';
         
+        // التحقق مما إذا كان الملخص محفوظاً لعرضه مباشرة بدون رسالة "جاري التوليد"
+        const cachedSummary = localStorage.getItem(`gemini_summary_${repo.name}`);
+        const initialText = cachedSummary ? cachedSummary : `<i class="fa-solid fa-circle-notch fa-spin text-primary/50 mr-2"></i> جاري التلخيص بالذكاء الاصطناعي...`;
+
         card.innerHTML += `
             <div class="flex justify-between items-start mb-4 pt-1">
                 <i class="fa-brands fa-github text-3xl text-white/30 group-hover:text-white/70 transition-colors"></i>
@@ -186,7 +193,7 @@ function renderGithubProjects(repos) {
             
             <div class="flex-grow mb-5">
                 <p id="desc-${repo.name}" class="text-sm text-gray-400 leading-relaxed min-h-[40px] line-clamp-3">
-                    <i class="fa-solid fa-circle-notch fa-spin text-primary/50 mr-2"></i> جاري توليد الملخص بالذكاء الاصطناعي...
+                    ${initialText}
                 </p>
             </div>
             
