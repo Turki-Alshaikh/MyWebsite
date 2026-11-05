@@ -1,282 +1,236 @@
 <!DOCTYPE html>
-<html lang="en" dir="ltr">
-
+<html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Turki Alshaikh</title>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Baloo+Bhaijaan+2:wght@400;500;600;700;800&display=swap"
-        rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    <link rel="stylesheet" href="style.css">
+    <title>Turki Alshaikh | Portfolio</title>
+    
+    <!-- Google Fonts: Cairo (Arabic) & Outfit (English) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;800&family=Outfit:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- FontAwesome 6 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
 </head>
+<body>
 
-<body class="dark">
+    <!-- Ambient Background -->
+    <div class="glow-orb glow-1 animate-blob"></div>
+    <div class="glow-orb glow-2 animate-blob"></div>
+    <div class="glow-orb glow-3 animate-blob"></div>
 
-    <header class="header-fixed">
-        <div class="header-glass">
-            <div class="logo-text" data-key="logoName">TURKI ALSHAIKH</div>
-            <div style="display: flex; gap: 8px; align-items: center;">
-                <button class="theme-btn" id="themeBtn" onclick="toggleTheme()" aria-label="Toggle Theme">
-                    <i class="fa-solid fa-moon"></i>
-                </button>
-                <button class="lang-btn" id="langBtn" onclick="toggleLang()">AR</button>
-            </div>
-        </div>
+    <!-- Header / Language Toggle -->
+    <header class="fixed top-0 w-full z-50 p-6 flex justify-between items-center pointer-events-none backdrop-blur-sm bg-[#030712]/30 border-b border-white/5">
+        <div class="text-2xl font-black tracking-widest text-white/80 pointer-events-auto">TURKI</div>
+        <button onclick="toggleLanguage()" class="glass-btn !p-3 rounded-full pointer-events-auto text-primary" title="Toggle Language">
+            <i class="fa-solid fa-language text-xl"></i>
+        </button>
     </header>
 
-    <div class="main-wrapper">
-        <div class="glass-card">
+    <!-- Side Navigation Dots (Desktop) -->
+    <div class="fixed right-6 top-1/2 -translate-y-1/2 z-50 flex flex-col gap-4 rtl:right-auto rtl:left-6 hidden md:flex">
+        <a href="#hero" class="nav-dot active" data-target="hero"></a>
+        <a href="#about" class="nav-dot" data-target="about"></a>
+        <a href="#projects" class="nav-dot" data-target="projects"></a>
+        <a href="#education" class="nav-dot" data-target="education"></a>
+    </div>
 
-            <section id="home" class="section active">
-                <div class="home-content">
-                    <div class="text-area">
-                        <h2 style="color: var(--text-muted); font-size: 1.1rem; text-transform: uppercase; letter-spacing: 2px; font-weight: 600;"
-                            data-key="hello">Hello, I'm</h2>
-                        <h1 class="hero-title" data-key="name">TURKI ALSHAIKH</h1>
-                        <p class="hero-subtitle" data-key="role">Computer Science Student & Entrepreneur</p>
-                        <p class="hero-desc" data-key="bio">
-                            Computer Science student at Jubail Industrial College (Class of 2026). Integrating advanced
-                            software development with e-commerce strategies. Founder of 'Mfatihy' digital store and
-                            developer of commercially successful interactive games.
+    <!-- Main Content -->
+    <main>
+        
+        <!-- ================= SECTION 1: HERO ================= -->
+        <section id="hero">
+            <div class="max-w-4xl w-full text-center animate-float">
+                <h1 class="text-5xl md:text-7xl font-extrabold mb-4 text-gradient tracking-tight" data-i18n="hero_name">
+                    تركي الشيخ
+                </h1>
+                
+                <h2 class="text-xl md:text-3xl font-bold mb-6 flex flex-col md:flex-row items-center justify-center gap-2 md:gap-4">
+                    <span class="text-gradient-primary" data-i18n="hero_title_1">خريج علوم حاسب</span> 
+                    <span class="hidden md:inline text-white/20">|</span> 
+                    <span class="text-gray-300" data-i18n="hero_title_2">أخصائي تقنية معلومات</span>
+                </h2>
+
+                <p class="text-gray-400 font-medium mb-10 flex items-center justify-center gap-2 text-lg">
+                    <i class="fa-solid fa-location-dot text-primary/80"></i>
+                    <span data-i18n="location">جدة، المملكة العربية السعودية</span>
+                </p>
+
+                <div class="flex flex-col sm:flex-row justify-center items-center gap-4">
+                    <a href="mailto:Turki1Alshaikh@gmail.com" class="glass-btn hover:text-[#ea4335] group w-full sm:w-auto">
+                        <i class="fa-solid fa-envelope text-lg group-hover:scale-110 transition-transform"></i> 
+                        <span dir="ltr">Turki1Alshaikh@gmail.com</span>
+                    </a>
+                    <a href="https://linkedin.com/in/Turki--Alshaikh" target="_blank" class="glass-btn hover:text-[#0077b5] group w-full sm:w-auto">
+                        <i class="fa-brands fa-linkedin text-lg group-hover:scale-110 transition-transform"></i> 
+                        <span dir="ltr">Turki--Alshaikh</span>
+                    </a>
+                </div>
+            </div>
+            
+            <a href="#about" class="absolute bottom-8 text-white/30 hover:text-white transition-colors animate-bounce hidden md:block">
+                <i class="fa-solid fa-chevron-down text-2xl"></i>
+            </a>
+        </section>
+
+        <!-- ================= SECTION 2: ABOUT & SKILLS ================= -->
+        <section id="about">
+            <div class="max-w-6xl w-full grid grid-cols-1 lg:grid-cols-2 gap-8 items-stretch h-full">
+                
+                <!-- Bio Panel -->
+                <div class="glass-panel p-8 md:p-12 h-full flex flex-col justify-center">
+                    <div class="flex items-center gap-4 mb-6">
+                        <i class="fa-solid fa-user-astronaut text-3xl text-primary"></i>
+                        <h2 class="text-3xl font-bold text-white" data-i18n="about_title">نبذة عني</h2>
+                    </div>
+                    <div class="space-y-5 text-gray-300 text-lg leading-relaxed">
+                        <p data-i18n="about_p1">
+                            خريج علوم حاسب بشغف كبير تجاه تطوير البرمجيات، الشبكات، والبنية التحتية لتقنية المعلومات. أدمج بين المهارات التقنية القوية وعقلية الأعمال، وهو ما تُرجم عملياً بتأسيس وتطوير منصة 
+                            <a href="https://mfatihy.com/" target="_blank" class="text-primary hover:text-white font-bold transition-colors">مفاتيحي (Mfatihy)</a>.
                         </p>
-                        <button class="btn-primary" style="border:none; cursor:pointer;"
-                            onclick="showSection('projects')" data-key="exploreBtn">View Projects</button>
+                        <p data-i18n="about_p2">
+                            أمتلك مهارة عالية في برمجة البايثون، تطوير واجهات الويب، إدارة قواعد البيانات، وتوظيف أدوات الذكاء الاصطناعي لتسريع حل المشكلات التقنية وتحسين سير العمل.
+                        </p>
                     </div>
-                    <div class="image-area">
-                        <div class="avatar-circle">
-                            <img src="https://cdn-icons-png.flaticon.com/512/2349/2349092.png"
-                                style="width: 80%; opacity: 0.9;" alt="Turki">
+                </div>
+
+                <!-- Skills Panel -->
+                <div class="glass-panel p-8 md:p-12 h-full flex flex-col justify-center bg-white/[0.01]">
+                    <div class="flex items-center gap-4 mb-8">
+                        <i class="fa-solid fa-code text-3xl text-secondary"></i>
+                        <h2 class="text-3xl font-bold text-white" data-i18n="skills_title">التقنيات والأدوات</h2>
+                    </div>
+                    
+                    <div class="grid grid-cols-2 sm:grid-cols-3 gap-4">
+                        <div class="glass-card p-5 flex flex-col items-center gap-3 group">
+                            <i class="fa-brands fa-python text-4xl text-gray-500 group-hover:text-[#3776AB] transition-colors"></i>
+                            <span class="font-semibold text-sm">Python</span>
+                        </div>
+                        <div class="glass-card p-5 flex flex-col items-center gap-3 group">
+                            <i class="fa-brands fa-js text-4xl text-gray-500 group-hover:text-[#F7DF1E] transition-colors"></i>
+                            <span class="font-semibold text-sm">JavaScript</span>
+                        </div>
+                        <div class="glass-card p-5 flex flex-col items-center gap-3 group">
+                            <i class="fa-brands fa-html5 text-4xl text-gray-500 group-hover:text-[#E34F26] transition-colors"></i>
+                            <span class="font-semibold text-sm">HTML/CSS</span>
+                        </div>
+                        <div class="glass-card p-5 flex flex-col items-center gap-3 group">
+                            <i class="fa-solid fa-database text-4xl text-gray-500 group-hover:text-[#4479A1] transition-colors"></i>
+                            <span class="font-semibold text-sm">SQL & SQLite</span>
+                        </div>
+                        <div class="glass-card p-5 flex flex-col items-center gap-3 group">
+                            <i class="fa-brands fa-java text-4xl text-gray-500 group-hover:text-[#ED8B00] transition-colors"></i>
+                            <span class="font-semibold text-sm">Java</span>
+                        </div>
+                        <div class="glass-card p-5 flex flex-col items-center gap-3 group">
+                            <svg viewBox="0 0 24 24" width="36" height="36" fill="currentColor" class="text-gray-500 group-hover:text-[#02569B] transition-colors"><path d="M14.314 0L2.3 12 6 15.7 21.684.013h-7.357zm.014 11.072L7.857 17.53l3.67 3.67 9.07-9.068h-6.269zm2.34 7.34l-2.08 2.08-3.67-3.67 2.08-2.08 3.67 3.67z"/></svg>
+                            <span class="font-semibold text-sm">Flutter</span>
                         </div>
                     </div>
                 </div>
-            </section>
 
-            <section id="projects" class="section">
-                <h2 style="margin-bottom: 2rem; font-size: 2rem; font-weight: 800; text-align: center;"
-                    data-key="projectsTitle">Featured Projects</h2>
-
-                <div class="section-header">
-                    <i class="fa-solid fa-briefcase"></i>
-                    <span data-key="secPersonal">Personal & Business</span>
-                </div>
-                <div class="projects-grid">
-
-                    <div class="project-card" onclick="openProject('mystudies')">
-                        <div class="project-img-container">
-                            <img src="img/dashboard.png" alt="myStudies"
-                                onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'">
-                            <div class="project-icon-placeholder"
-                                style="background: linear-gradient(135deg, #3b82f6, #1d4ed8); display: none;">
-                                <i class="fa-solid fa-graduation-cap"></i>
-                            </div>
-                        </div>
-                        <div class="project-body">
-                            <h3 class="project-title">myStudies</h3>
-                            <p class="project-desc" data-key="proj1Desc">A personal academic assistant application
-                                developed for Jubail Industrial College students (Graduation Project).</p>
-                            <div class="tags-row"><span class="tag">Flutter</span> <span class="tag">Academic</span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="project-card" onclick="openProject('mfatihy')">
-                        <div class="project-img-container">
-                            <img src="img/Mfatihylogo.webp" alt="Mfatihy"
-                                onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'">
-                            <div class="project-icon-placeholder"
-                                style="background: linear-gradient(135deg, #8b5cf6, #5b21b6); display: none;">
-                                <i class="fa-solid fa-key"></i>
-                            </div>
-                        </div>
-                        <div class="project-body">
-                            <h3 class="project-title">Mfatihy Store</h3>
-                            <p class="project-desc" data-key="proj4Desc">A fully operational e-commerce platform
-                                specializing in digital software licenses.</p>
-                            <div class="tags-row"><span class="tag">E-Commerce</span> <span class="tag">Business</span>
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
-
-                <div class="section-header" style="margin-top: 3rem;">
-                    <i class="fa-solid fa-gamepad"></i>
-                    <span data-key="secGames">Interactive Games</span>
-                </div>
-                <div class="projects-grid">
-
-                    <div class="project-card" onclick="openProject('familyfeud')">
-                        <div class="project-img-container">
-                            <img src="img/Logo_of_Family_Feud.png" alt="Family Feud"
-                                onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'">
-                            <div class="project-icon-placeholder"
-                                style="background: linear-gradient(135deg, #10b981, #047857); display: none;">
-                                <i class="fa-solid fa-users"></i>
-                            </div>
-                        </div>
-                        <div class="project-body">
-                            <h3 class="project-title">Family Feud</h3>
-                            <p class="project-desc" data-key="proj3Desc">An interactive web-based game tailored for
-                                family gatherings, simulating the famous TV show.</p>
-                            <div class="tags-row"><span class="tag">Web Game</span> <span class="tag">Interactive</span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="project-card" onclick="openProject('khaliya')">
-                        <div class="project-img-container">
-                            <img src="img/khaliya_main.png" alt="Khaliya"
-                                onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'">
-                            <div class="project-icon-placeholder"
-                                style="background: linear-gradient(135deg, #f59e0b, #b45309); display: none;">
-                                <i class="fa-solid fa-gamepad"></i>
-                            </div>
-                        </div>
-                        <div class="project-body">
-                            <h3 class="project-title" data-key="proj2Title">Interactive Games (Khaliya)</h3>
-                            <p class="project-desc" data-key="proj2Desc">Developed commercial group games (Khaliya &
-                                Majalat) inspired by 'Horoof wa Aloof', achieving over 1,713 sales.</p>
-                            <div class="tags-row"><span class="tag">Game Dev</span> <span class="tag">+1.7k Sales</span>
-                            </div>
-                        </div>
-                    </div>
-
-
-
-    
-
-    
-
-                </div>
-            </section>
-
-            <section id="skills" class="section">
-                <h2 style="margin-bottom: 2.5rem; font-size: 2rem; font-weight: 800; text-align: center;"
-                    data-key="skillsTitle">Technical & Soft Skills</h2>
-                <div class="skills-grid">
-
-                    <div class="skill-card">
-                        <div class="skill-header"><i class="fa-solid fa-laptop-code"></i>
-                            <h3 data-key="skillDev">Software Development</h3>
-                        </div>
-                        <ul class="skill-list">
-                            <li class="skill-item"><i class="fa-brands fa-python"></i> Python</li>
-                            <li class="skill-item"><i class="fa-brands fa-flutter"></i> Flutter</li>
-                            <li class="skill-item"><i class="fa-solid fa-bullseye"></i> Dart</li>
-                            <li class="skill-item"><i class="fa-brands fa-js"></i> JavaScript</li>
-                            <li class="skill-item"><i class="fa-brands fa-html5"></i> HTML & CSS</li>
-                        </ul>
-                    </div>
-
-                    <div class="skill-card">
-                        <div class="skill-header"><i class="fa-solid fa-brain"></i>
-                            <h3 data-key="skillAI">Artificial Intelligence</h3>
-                        </div>
-                        <ul class="skill-list">
-                            <li class="skill-item"><i class="fa-solid fa-microchip"></i> <span data-key="aiIntegr">AI
-                                    Integration</span></li>
-                            <li class="skill-item"><i class="fa-solid fa-comment-dots"></i> <span
-                                    data-key="promptEng">Prompt Engineering</span></li>
-                            <li class="skill-item"><i class="fa-solid fa-wand-magic-sparkles"></i> <span
-                                    data-key="aiTools">AI Tools</span></li>
-                        </ul>
-                    </div>
-
-                    <div class="skill-card">
-                        <div class="skill-header"><i class="fa-solid fa-briefcase"></i>
-                            <h3 data-key="skillBusiness">Business & Management</h3>
-                        </div>
-                        <ul class="skill-list">
-                            <li class="skill-item"><i class="fa-solid fa-cart-shopping"></i> <span
-                                    data-key="ecomManage">E-Commerce Management</span></li>
-                            <li class="skill-item"><i class="fa-solid fa-comments"></i> <span
-                                    data-key="clientComm">Client Communication</span></li>
-                            <li class="skill-item"><i class="fa-solid fa-headset"></i> <span
-                                    data-key="custSupport">Customer Support</span></li>
-                        </ul>
-                    </div>
-
-                    <div class="skill-card">
-                        <div class="skill-header"><i class="fa-solid fa-toolbox"></i>
-                            <h3 data-key="skillTools">Tools & Software</h3>
-                        </div>
-                        <ul class="skill-list">
-                            <li class="skill-item"><i class="fa-solid fa-pen-nib"></i> <span
-                                    data-key="toolPs">Photoshop</span></li>
-                            <li class="skill-item"><i class="fa-brands fa-microsoft"></i> <span data-key="toolOffice">MS
-                                    Office</span></li>
-                            <li class="skill-item"><i class="fa-brands fa-github"></i> GitHub & Git</li>
-                        </ul>
-                    </div>
-
-                </div>
-            </section>
-
-            <section id="contact" class="section">
-                <div class="contact-container">
-                    <h2 style="font-size: 2.5rem; font-weight: 800;" data-key="contactTitle">Let's Connect</h2>
-                    <p style="color: var(--text-muted); max-width: 500px; font-size: 1.1rem;" data-key="contactDesc">
-                        Actively seeking Coop training or full-time opportunities.
-                    </p>
-                    <div class="social-row">
-                        <a href="https://www.linkedin.com/in/turki--alshaikh" target="_blank" class="social-btn"><i
-                                class="fa-brands fa-linkedin-in"></i></a>
-                        <a href="https://github.com/Turki-Alshaikh" target="_blank" class="social-btn"><i
-                                class="fa-brands fa-github"></i></a>
-                        <a href="https://x.com/Turki__alshaikh" target="_blank" class="social-btn">
-                            <i class="fa-brands fa-x-twitter"></i>
-                        </a>
-                        <a href="https://www.instagram.com/turki_alshaik/" target="_blank" class="social-btn"><i
-                                class="fa-brands fa-instagram"></i></a>
-                        <a href="https://wa.me/966558431265" target="_blank" class="social-btn"><i
-                                class="fa-brands fa-whatsapp"></i></a>
-                        <a href="tel:+966558431265" class="social-btn"><i class="fa-solid fa-phone"></i></a>
-                        <a href="mailto:Turki1Alshaikh@gmail.com" class="social-btn"><i
-                                class="fa-solid fa-envelope"></i></a>
-                        <a href="https://mfatihy.com" target="_blank" class="social-btn"><i
-                                class="fa-solid fa-store"></i></a>
-                    </div>
-                </div>
-            </section>
-
-        </div>
-    </div>
-
-    <nav class="nav-fixed">
-        <div class="nav-pills">
-            <button class="nav-item active" onclick="showSection('home')" data-key="navHome">Home</button>
-            <button class="nav-item" onclick="showSection('projects')" data-key="navProjects">Projects</button>
-            <button class="nav-item" onclick="showSection('skills')" data-key="navSkills">Skills</button>
-            <button class="nav-item" onclick="showSection('contact')" data-key="navContact">Contact</button>
-        </div>
-    </nav>
-
-    <div class="modal-overlay" id="projectModal" onclick="if(event.target === this) closeProject()">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h3 id="modalTitle" style="font-weight: 700; font-size: 1.2rem; color: var(--text-main);">Project Name
-                </h3>
-                <button class="close-modal" onclick="closeProject()">&times;</button>
             </div>
-            <div class="modal-body">
-                <div class="gallery-container">
-                    <div class="main-image-frame">
-                        <img id="mainImage" src="" alt="Main View">
-                    </div>
-                    <div class="thumbnails-row" id="thumbsContainer"></div>
+        </section>
+
+        <!-- ================= SECTION 3: PROJECTS ================= -->
+        <section id="projects" style="justify-content: flex-start;">
+            <div class="w-full max-w-6xl mx-auto">
+                
+                <div class="flex items-center gap-4 mb-10">
+                    <i class="fa-solid fa-layer-group text-4xl text-white"></i>
+                    <h2 class="text-4xl font-extrabold text-white" data-i18n="projects_title">
+                        أبرز المشاريع
+                    </h2>
                 </div>
-                <div class="modal-details">
-                    <p id="modalDesc">Description goes here...</p>
-                    <a href="#" id="modalLink" target="_blank" class="visit-btn" data-key="visitBtn">Visit Project <i
-                            class="fa-solid fa-arrow-up-right-from-square"></i></a>
+                
+                <!-- Fixed Featured Projects -->
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-16">
+                    <!-- Mfatihy -->
+                    <div class="glass-panel p-8 relative overflow-hidden group hover:-translate-y-1 transition-transform duration-300">
+                        <div class="absolute top-0 right-0 w-32 h-32 bg-primary/10 rounded-full blur-3xl group-hover:bg-primary/20 transition-all"></div>
+                        <div class="flex justify-between items-start mb-4 relative z-10">
+                            <h3 class="text-2xl font-bold text-white"><a href="https://mfatihy.com/" target="_blank" class="hover:text-primary transition-colors">منصة مفاتيحي (Mfatihy)</a></h3>
+                            <i class="fa-solid fa-store text-2xl text-primary/70"></i>
+                        </div>
+                        <p class="text-primary font-semibold text-sm mb-4" data-i18n="mfatihy_role">المؤسس والمطور الرئيسي</p>
+                        <ul class="space-y-3 text-gray-300 text-sm list-none">
+                            <li class="flex items-start gap-3"><i class="fa-solid fa-arrow-left text-primary mt-1 rtl:rotate-0 rotate-180"></i> <span data-i18n="mfatihy_p1">بناء وتوسيع منصة رقمية مؤتمتة لتوزيع البرمجيات.</span></li>
+                            <li class="flex items-start gap-3"><i class="fa-solid fa-arrow-left text-primary mt-1 rtl:rotate-0 rotate-180"></i> <span data-i18n="mfatihy_p2">هندسة نظام تسليم آلي متكامل باستخدام تقنيات الـ Webhooks.</span></li>
+                        </ul>
+                    </div>
+                    
+                    <!-- MyStudies -->
+                    <div class="glass-panel p-8 relative overflow-hidden group hover:-translate-y-1 transition-transform duration-300">
+                        <div class="absolute top-0 right-0 w-32 h-32 bg-secondary/10 rounded-full blur-3xl group-hover:bg-secondary/20 transition-all"></div>
+                        <div class="flex justify-between items-start mb-4 relative z-10">
+                            <h3 class="text-2xl font-bold text-white">MyStudies App</h3>
+                            <i class="fa-solid fa-mobile-screen text-2xl text-secondary/70"></i>
+                        </div>
+                        <p class="text-secondary font-semibold text-sm mb-4" data-i18n="mystudies_role">مطور برمجيات</p>
+                        <ul class="space-y-3 text-gray-300 text-sm list-none">
+                            <li class="flex items-start gap-3"><i class="fa-solid fa-arrow-left text-secondary mt-1 rtl:rotate-0 rotate-180"></i> <span data-i18n="mystudies_p1">تطوير تطبيق جوال متكامل باستخدام Flutter و Dart بنظام BLOC.</span></li>
+                            <li class="flex items-start gap-3"><i class="fa-solid fa-arrow-left text-secondary mt-1 rtl:rotate-0 rotate-180"></i> <span data-i18n="mystudies_p2">دمج تقنيات الذكاء الاصطناعي (Google ML Kit) لاستخراج نصوص المواعيد آلياً من الصور.</span></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Dynamic GitHub Pinned Repos -->
+                <div class="flex items-center gap-3 mb-8 pt-8 border-t border-white/5">
+                    <i class="fa-brands fa-github text-3xl text-gray-400"></i>
+                    <h2 class="text-2xl font-bold text-gray-200" data-i18n="git_projects">المشاريع المثبتة على GitHub</h2>
+                </div>
+                
+                <div id="githubGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <!-- Loading State -->
+                    <div class="col-span-full flex flex-col items-center justify-center py-12 text-gray-500">
+                        <i class="fa-solid fa-circle-notch fa-spin text-4xl mb-4 text-white/20"></i>
+                        <p data-i18n="loading">جاري جلب المشاريع...</p>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- ================= SECTION 4: EDUCATION ================= -->
+        <section id="education">
+            <div class="glass-panel p-10 md:p-16 w-full max-w-4xl mx-auto text-center relative overflow-hidden">
+                <div class="absolute -top-20 -left-20 w-64 h-64 bg-primary/5 rounded-full blur-3xl"></div>
+                <div class="absolute -bottom-20 -right-20 w-64 h-64 bg-accent/5 rounded-full blur-3xl"></div>
+                
+                <div class="relative z-10 flex flex-col items-center">
+                    <div class="w-24 h-24 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-5xl text-primary mb-8 shadow-[0_0_40px_rgba(56,189,248,0.15)]">
+                        <i class="fa-solid fa-graduation-cap"></i>
+                    </div>
+                    
+                    <h2 class="text-3xl md:text-4xl font-extrabold mb-4 text-white" data-i18n="edu_degree">
+                        دبلوم في علوم حاسب
+                    </h2>
+                    
+                    <h3 class="text-xl md:text-2xl text-gray-400 font-medium mb-6">
+                        <span data-i18n="edu_school">كلية الجبيل الصناعية</span>
+                        <span class="mx-2 opacity-50">|</span>
+                        <span class="text-sm uppercase tracking-widest text-primary/80" data-i18n="edu_cs">Computer Science</span>
+                    </h3>
+                    
+                    <div class="inline-flex items-center gap-3 glass-btn !px-6 !py-3 !rounded-xl !bg-white/5 border-white/10 text-gray-300 pointer-events-none hover:transform-none hover:bg-white/5 hover:border-white/10 hover:shadow-none">
+                        <i class="fa-regular fa-calendar-check text-primary"></i>
+                        <span class="font-bold tracking-wide" data-i18n="edu_date">تاريخ التخرج: أبريل 2026</span>
+                    </div>
                 </div>
             </div>
-        </div>
-    </div>
+            
+            <footer class="mt-20 text-center text-gray-500/50 text-sm font-medium w-full">
+                &copy; <span id="year">2026</span> <span data-i18n="hero_name">تركي الشيخ</span>. All rights reserved.
+            </footer>
+        </section>
 
+    </main>
     <script src="script.js"></script>
-</body>
 
+</body>
 </html>
