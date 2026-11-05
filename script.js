@@ -101,7 +101,7 @@ window.addEventListener('scroll', () => {
 });
 let globalRepos = [];
 
-// تعديل دالة تبديل اللغة لتحديث المشاريع تلقائياً
+// تعديل دالة تبديل اللغة لتحديث لغة الرسائل التوضيحية
 function toggleLanguage() {
     currentLang = currentLang === 'ar' ? 'en' : 'ar';
     const htmlTag = document.documentElement;
@@ -116,20 +116,8 @@ function toggleLanguage() {
     });
 
     if (globalRepos.length > 0) {
-        updateSummariesLanguage();
-    }
-}
-
-async function updateSummariesLanguage() {
-    globalRepos.forEach(repo => {
-        const descElement = document.getElementById(`desc-${repo.name}`);
-        if (descElement) {
-            descElement.innerHTML = `<i class="fa-solid fa-circle-notch fa-spin text-primary/50 mr-2"></i> ${currentLang === 'ar' ? 'جاري التلخيص بالذكاء الاصطناعي...' : 'AI Summarizing...'}`;
-        }
-    });
-
-    for (const repo of globalRepos) {
-        await fetchAndInjectSummary(repo.name, repo.description, currentLang);
+        renderGithubProjects(globalRepos); // إعادة رسم البطاقات لتحديث لغة "جاري التحميل"
+        globalRepos.forEach(repo => fetchAndInjectReadme(repo.name, repo.description));
     }
 }
 
@@ -152,9 +140,9 @@ async function loadGithubProjects() {
 
         renderGithubProjects(globalRepos);
         
+        // جلب تفاصيل README لكل مشروع
         for (const repo of globalRepos) {
-            await fetchAndInjectSummary(repo.name, repo.description, currentLang);
-            await new Promise(r => setTimeout(r, 1000)); 
+            fetchAndInjectReadme(repo.name, repo.description);
         }
 
     } catch (error) {
@@ -162,42 +150,55 @@ async function loadGithubProjects() {
     }
 }
 
-async function fetchAndInjectSummary(repoName, originalDescription, targetLang) {
+async function fetchAndInjectReadme(repoName, originalDescription) {
     const descElement = document.getElementById(`desc-${repoName}`);
     if (!descElement) return;
 
-    // استخدام مفتاح تخزين يحتوي على اللغة لتخزين كلا النسختين
-    const cacheKey = `gemini_summary_${repoName}_${targetLang}`;
+    // محاولة قراءة الوصف من المتصفح لتسريع التحميل
+    const cacheKey = `readme_summary_${repoName}`;
     const cachedSummary = localStorage.getItem(cacheKey);
     
-    // إذا كان محفوظاً مسبقاً، اعرضه فوراً وتجاوز الخادم
-    if (cachedSummary && !cachedSummary.includes("رسالة من الذكاء")) {
+    if (cachedSummary) {
         descElement.innerHTML = cachedSummary;
         return;
     }
 
     try {
-        const response = await fetch('/.netlify/functions/summarize', {
-            method: 'POST',
-            body: JSON.stringify({ repoName, lang: targetLang })
-        });
+        // جلب ملف README من GitHub مباشرة
+        const response = await fetch(`https://api.github.com/repos/${GITHUB_USER}/${repoName}/readme`);
         
         if (response.ok) {
             const data = await response.json();
-            const summary = data.summary;
+            // فك التشفير
+            let content = decodeURIComponent(escape(atob(data.content)));
             
-            // احفظ في المتصفح فقط إذا نجح التلخيص
-            if (!summary.includes("رسالة من الذكاء") && !summary.includes("تعذر") && !summary.includes("Failed")) {
-                descElement.innerHTML = summary;
-                localStorage.setItem(cacheKey, summary);
-            } else {
-                descElement.innerHTML = originalDescription || (targetLang === 'ar' ? "وصف المشروع غير متاح." : "Description not available.");
+            // تنظيف النص (إزالة أكواد HTML، الروابط، وعلامات Markdown)
+            content = content.replace(/<[^>]*>?/gm, ''); // إزالة HTML
+            content = content.replace(/!\[.*?\]\(.*?\)/g, ''); // إزالة الصور
+            content = content.replace(/\[([^\]]+)\]\([^\)]+\)/g, '$1'); // تحويل الروابط لنصوص فقط
+            content = content.replace(/[#*`~>-]/g, ''); // إزالة علامات Markdown
+            content = content.replace(/\s+/g, ' ').trim(); // إزالة المسافات الزائدة
+            
+            // أخذ أول 130 حرف كنبذة
+            let summary = content.substring(0, 130);
+            if (content.length > 130) summary += '...';
+            
+            // إذا كان الـ README فارغاً بعد التنظيف، استخدم الوصف الأساسي للمشروع
+            if (!summary || summary.trim() === '') {
+                summary = originalDescription || (currentLang === 'ar' ? "لا يوجد وصف متاح." : "No description available.");
             }
+
+            descElement.innerHTML = summary;
+            localStorage.setItem(cacheKey, summary); // حفظ في المتصفح
+
         } else {
-            descElement.innerHTML = originalDescription || (targetLang === 'ar' ? "وصف المشروع غير متاح." : "Description not available.");
+            // في حال عدم وجود ملف README، استخدم وصف المشروع الأساسي
+            const fallbackSummary = originalDescription || (currentLang === 'ar' ? "لا يوجد وصف متاح." : "No description available.");
+            descElement.innerHTML = fallbackSummary;
+            localStorage.setItem(cacheKey, fallbackSummary);
         }
     } catch (e) {
-        descElement.innerHTML = originalDescription || (targetLang === 'ar' ? "وصف المشروع غير متاح." : "Description not available.");
+        descElement.innerHTML = originalDescription || (currentLang === 'ar' ? "لا يوجد وصف متاح." : "No description available.");
     }
 }
 
@@ -209,12 +210,11 @@ function renderGithubProjects(repos) {
         const card = document.createElement('div');
         card.className = 'glass-card p-6 flex flex-col h-full relative overflow-hidden group hover:-translate-y-1 transition-transform duration-300';
         
-        const cacheKey = `gemini_summary_${repo.name}_${currentLang}`;
+        const cacheKey = `readme_summary_${repo.name}`;
         const cachedSummary = localStorage.getItem(cacheKey);
         
-        // אם الوصف موجود في الذاكرة اعرضه، وإلا اعرض علامة التحميل
-        const loadingText = currentLang === 'ar' ? 'جاري التلخيص بالذكاء الاصطناعي...' : 'AI Summarizing...';
-        const initialText = (cachedSummary && !cachedSummary.includes("رسالة من الذكاء")) ? cachedSummary : `<i class="fa-solid fa-circle-notch fa-spin text-primary/50 mr-2"></i> ${loadingText}`;
+        const loadingText = currentLang === 'ar' ? 'جاري جلب نبذة المشروع...' : 'Fetching project info...';
+        const initialText = cachedSummary ? cachedSummary : `<i class="fa-solid fa-circle-notch fa-spin text-primary/50 mr-2"></i> ${loadingText}`;
 
         card.innerHTML += `
             <div class="flex justify-between items-start mb-4 pt-1">
