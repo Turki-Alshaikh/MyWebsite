@@ -101,7 +101,7 @@ window.addEventListener('scroll', () => {
 });
 let globalRepos = [];
 
-// تعديل دالة تبديل اللغة لتحديث لغة الرسائل التوضيحية
+// تعديل دالة تبديل اللغة
 function toggleLanguage() {
     currentLang = currentLang === 'ar' ? 'en' : 'ar';
     const htmlTag = document.documentElement;
@@ -115,9 +115,9 @@ function toggleLanguage() {
         }
     });
 
+    // إعادة رسم المشاريع لتحديث رسالة "الوصف غير متاح" في حال تغيير اللغة
     if (globalRepos.length > 0) {
-        renderGithubProjects(globalRepos); // إعادة رسم البطاقات لتحديث لغة "جاري التحميل"
-        globalRepos.forEach(repo => fetchAndInjectReadme(repo.name, repo.description));
+        renderGithubProjects(globalRepos);
     }
 }
 
@@ -127,78 +127,23 @@ async function loadGithubProjects() {
     const grid = document.getElementById('githubGrid');
     
     try {
+        // جلب المشاريع مرتبة حسب الأحدث
         const res = await fetch(`https://api.github.com/users/${GITHUB_USER}/repos?sort=updated&per_page=20`);
         if(!res.ok) throw new Error("GitHub API failed");
         
         let repos = await res.json();
-        globalRepos = repos.filter(r => !r.fork);
+        globalRepos = repos.filter(r => !r.fork); // تخزين المشاريع الأساسية (بدون النسخ المنسوخة)
 
         if(globalRepos.length === 0) {
-            grid.innerHTML = `<p class="col-span-full text-center text-gray-500/50">لا توجد مشاريع حالياً.</p>`;
+            grid.innerHTML = `<p class="col-span-full text-center text-gray-500/50" data-i18n="no_projects">لا توجد مشاريع حالياً.</p>`;
             return;
         }
 
+        // رسم البطاقات مباشرة وعرض وصف About
         renderGithubProjects(globalRepos);
-        
-        // جلب تفاصيل README لكل مشروع
-        for (const repo of globalRepos) {
-            fetchAndInjectReadme(repo.name, repo.description);
-        }
 
     } catch (error) {
         grid.innerHTML = `<p class="col-span-full text-center text-red-400">فشل في جلب المشاريع من GitHub.</p>`;
-    }
-}
-
-async function fetchAndInjectReadme(repoName, originalDescription) {
-    const descElement = document.getElementById(`desc-${repoName}`);
-    if (!descElement) return;
-
-    // محاولة قراءة الوصف من المتصفح لتسريع التحميل
-    const cacheKey = `readme_summary_${repoName}`;
-    const cachedSummary = localStorage.getItem(cacheKey);
-    
-    if (cachedSummary) {
-        descElement.innerHTML = cachedSummary;
-        return;
-    }
-
-    try {
-        // جلب ملف README من GitHub مباشرة
-        const response = await fetch(`https://api.github.com/repos/${GITHUB_USER}/${repoName}/readme`);
-        
-        if (response.ok) {
-            const data = await response.json();
-            // فك التشفير
-            let content = decodeURIComponent(escape(atob(data.content)));
-            
-            // تنظيف النص (إزالة أكواد HTML، الروابط، وعلامات Markdown)
-            content = content.replace(/<[^>]*>?/gm, ''); // إزالة HTML
-            content = content.replace(/!\[.*?\]\(.*?\)/g, ''); // إزالة الصور
-            content = content.replace(/\[([^\]]+)\]\([^\)]+\)/g, '$1'); // تحويل الروابط لنصوص فقط
-            content = content.replace(/[#*`~>-]/g, ''); // إزالة علامات Markdown
-            content = content.replace(/\s+/g, ' ').trim(); // إزالة المسافات الزائدة
-            
-            // أخذ أول 130 حرف كنبذة
-            let summary = content.substring(0, 130);
-            if (content.length > 130) summary += '...';
-            
-            // إذا كان الـ README فارغاً بعد التنظيف، استخدم الوصف الأساسي للمشروع
-            if (!summary || summary.trim() === '') {
-                summary = originalDescription || (currentLang === 'ar' ? "لا يوجد وصف متاح." : "No description available.");
-            }
-
-            descElement.innerHTML = summary;
-            localStorage.setItem(cacheKey, summary); // حفظ في المتصفح
-
-        } else {
-            // في حال عدم وجود ملف README، استخدم وصف المشروع الأساسي
-            const fallbackSummary = originalDescription || (currentLang === 'ar' ? "لا يوجد وصف متاح." : "No description available.");
-            descElement.innerHTML = fallbackSummary;
-            localStorage.setItem(cacheKey, fallbackSummary);
-        }
-    } catch (e) {
-        descElement.innerHTML = originalDescription || (currentLang === 'ar' ? "لا يوجد وصف متاح." : "No description available.");
     }
 }
 
@@ -210,11 +155,9 @@ function renderGithubProjects(repos) {
         const card = document.createElement('div');
         card.className = 'glass-card p-6 flex flex-col h-full relative overflow-hidden group hover:-translate-y-1 transition-transform duration-300';
         
-        const cacheKey = `readme_summary_${repo.name}`;
-        const cachedSummary = localStorage.getItem(cacheKey);
-        
-        const loadingText = currentLang === 'ar' ? 'جاري جلب نبذة المشروع...' : 'Fetching project info...';
-        const initialText = cachedSummary ? cachedSummary : `<i class="fa-solid fa-circle-notch fa-spin text-primary/50 mr-2"></i> ${loadingText}`;
+        // استخراج الوصف من قسم About في GitHub، أو وضع رسالة افتراضية
+        const fallbackText = currentLang === 'ar' ? "لا يوجد وصف متاح لهذا المشروع." : "No description available for this project.";
+        const projectDescription = repo.description || fallbackText;
 
         card.innerHTML += `
             <div class="flex justify-between items-start mb-4 pt-1">
@@ -226,8 +169,8 @@ function renderGithubProjects(repos) {
             <h3 class="text-xl font-bold mb-3 text-white truncate" dir="ltr" title="${repo.name}">${repo.name}</h3>
             
             <div class="flex-grow mb-5">
-                <p id="desc-${repo.name}" class="text-sm text-gray-400 leading-relaxed min-h-[40px] line-clamp-3">
-                    ${initialText}
+                <p class="text-sm text-gray-400 leading-relaxed min-h-[40px] line-clamp-3">
+                    ${projectDescription}
                 </p>
             </div>
             
