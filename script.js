@@ -99,9 +99,9 @@ window.addEventListener('scroll', () => {
         }
     });
 });
-let globalRepos = []; // مصفوفة لحفظ المشاريع مؤقتاً لتسهيل تبديل اللغة
+let globalRepos = [];
 
-// تعديل دالة تغيير اللغة لتحديث المشاريع فوراً
+// تعديل دالة تبديل اللغة لتحديث المشاريع تلقائياً
 function toggleLanguage() {
     currentLang = currentLang === 'ar' ? 'en' : 'ar';
     const htmlTag = document.documentElement;
@@ -115,30 +115,24 @@ function toggleLanguage() {
         }
     });
 
-    // تحديث لغة المشاريع عند الضغط على زر التبديل
     if (globalRepos.length > 0) {
         updateSummariesLanguage();
     }
 }
 
 async function updateSummariesLanguage() {
-    // إظهار علامة التحميل لجميع المشاريع
     globalRepos.forEach(repo => {
         const descElement = document.getElementById(`desc-${repo.name}`);
         if (descElement) {
-            descElement.innerHTML = `<i class="fa-solid fa-circle-notch fa-spin text-primary/50 mr-2"></i> ${currentLang === 'ar' ? 'جاري جلب الوصف...' : 'Fetching summary...'}`;
+            descElement.innerHTML = `<i class="fa-solid fa-circle-notch fa-spin text-primary/50 mr-2"></i> ${currentLang === 'ar' ? 'جاري التلخيص بالذكاء الاصطناعي...' : 'AI Summarizing...'}`;
         }
     });
 
-    // جلب الملخصات باللغة الجديدة (من السيرفر)
     for (const repo of globalRepos) {
         await fetchAndInjectSummary(repo.name, repo.description, currentLang);
     }
 }
 
-// ----------------------------------------------------
-// دوال جلب المشاريع من GitHub
-// ----------------------------------------------------
 const GITHUB_USER = 'Turki-Alshaikh';
 
 async function loadGithubProjects() {
@@ -149,7 +143,7 @@ async function loadGithubProjects() {
         if(!res.ok) throw new Error("GitHub API failed");
         
         let repos = await res.json();
-        globalRepos = repos.filter(r => !r.fork); // حفظ المشاريع في المتغير العام
+        globalRepos = repos.filter(r => !r.fork);
 
         if(globalRepos.length === 0) {
             grid.innerHTML = `<p class="col-span-full text-center text-gray-500/50">لا توجد مشاريع حالياً.</p>`;
@@ -158,11 +152,9 @@ async function loadGithubProjects() {
 
         renderGithubProjects(globalRepos);
         
-        // جلب الملخصات للمرة الأولى (بالتتابع)
         for (const repo of globalRepos) {
             await fetchAndInjectSummary(repo.name, repo.description, currentLang);
-            // انتظار بسيط لتخفيف الطلبات لو لم تكن محفوظة
-            await new Promise(r => setTimeout(r, 500)); 
+            await new Promise(r => setTimeout(r, 1000)); 
         }
 
     } catch (error) {
@@ -174,6 +166,16 @@ async function fetchAndInjectSummary(repoName, originalDescription, targetLang) 
     const descElement = document.getElementById(`desc-${repoName}`);
     if (!descElement) return;
 
+    // استخدام مفتاح تخزين يحتوي على اللغة لتخزين كلا النسختين
+    const cacheKey = `gemini_summary_${repoName}_${targetLang}`;
+    const cachedSummary = localStorage.getItem(cacheKey);
+    
+    // إذا كان محفوظاً مسبقاً، اعرضه فوراً وتجاوز الخادم
+    if (cachedSummary && !cachedSummary.includes("رسالة من الذكاء")) {
+        descElement.innerHTML = cachedSummary;
+        return;
+    }
+
     try {
         const response = await fetch('/.netlify/functions/summarize', {
             method: 'POST',
@@ -184,11 +186,12 @@ async function fetchAndInjectSummary(repoName, originalDescription, targetLang) 
             const data = await response.json();
             const summary = data.summary;
             
-            // في حال وجود خطأ من الذكاء الاصطناعي، يتم عرض الوصف الأساسي
-            if (summary.includes("Error:") || summary.includes("تعذر") || summary.includes("Failed")) {
-                descElement.innerHTML = originalDescription || (targetLang === 'ar' ? "وصف المشروع غير متاح." : "Description not available.");
-            } else {
+            // احفظ في المتصفح فقط إذا نجح التلخيص
+            if (!summary.includes("رسالة من الذكاء") && !summary.includes("تعذر") && !summary.includes("Failed")) {
                 descElement.innerHTML = summary;
+                localStorage.setItem(cacheKey, summary);
+            } else {
+                descElement.innerHTML = originalDescription || (targetLang === 'ar' ? "وصف المشروع غير متاح." : "Description not available.");
             }
         } else {
             descElement.innerHTML = originalDescription || (targetLang === 'ar' ? "وصف المشروع غير متاح." : "Description not available.");
@@ -206,7 +209,12 @@ function renderGithubProjects(repos) {
         const card = document.createElement('div');
         card.className = 'glass-card p-6 flex flex-col h-full relative overflow-hidden group hover:-translate-y-1 transition-transform duration-300';
         
+        const cacheKey = `gemini_summary_${repo.name}_${currentLang}`;
+        const cachedSummary = localStorage.getItem(cacheKey);
+        
+        // אם الوصف موجود في الذاكرة اعرضه، وإلا اعرض علامة التحميل
         const loadingText = currentLang === 'ar' ? 'جاري التلخيص بالذكاء الاصطناعي...' : 'AI Summarizing...';
+        const initialText = (cachedSummary && !cachedSummary.includes("رسالة من الذكاء")) ? cachedSummary : `<i class="fa-solid fa-circle-notch fa-spin text-primary/50 mr-2"></i> ${loadingText}`;
 
         card.innerHTML += `
             <div class="flex justify-between items-start mb-4 pt-1">
@@ -219,7 +227,7 @@ function renderGithubProjects(repos) {
             
             <div class="flex-grow mb-5">
                 <p id="desc-${repo.name}" class="text-sm text-gray-400 leading-relaxed min-h-[40px] line-clamp-3">
-                    <i class="fa-solid fa-circle-notch fa-spin text-primary/50 mr-2"></i> ${loadingText}
+                    ${initialText}
                 </p>
             </div>
             
