@@ -32,7 +32,7 @@ exports.handler = async function(event, context) {
         const prompt = `أنت مساعد ذكي لمطور برمجيات. اقرأ ملف README التالي لمشروع "${repoName}" ولخصه في جملة واحدة أو جملتين كحد أقصى باللغة العربية ليكون وصفاً جذاباً في معرض الأعمال (Portfolio). لا تستخدم مقدمات، أعطني الوصف التقني والتسويقي مباشرة:\n\n${readmeContent}`;
 
         // 3. الاتصال بـ Gemini
-        const geminiRes = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-latest:generateContent?key=${apiKey}`, {
+        const geminiRes = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-3.8-flash:generateContent?key=${apiKey}`, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({
