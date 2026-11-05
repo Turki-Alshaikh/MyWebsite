@@ -1,3 +1,5 @@
+const fetch = require('node-fetch');
+
 exports.handler = async function(event, context) {
     if (event.httpMethod !== "POST") {
         return { statusCode: 405, body: "Method Not Allowed" };
@@ -7,24 +9,31 @@ exports.handler = async function(event, context) {
         const { repoName } = JSON.parse(event.body);
         const GITHUB_USER = "Turki-Alshaikh";
         
-        // 1. جلب ملف README من GitHub
+        // 1. جلب ملف README
         let readmeContent = "";
         const readmeRes = await fetch(`https://api.github.com/repos/${GITHUB_USER}/${repoName}/readme`);
         
         if (readmeRes.ok) {
             const readmeData = await readmeRes.json();
-            // GitHub يرسل النص مشفراً بـ Base64، نقوم بفك تشفيره هنا
             readmeContent = Buffer.from(readmeData.content, 'base64').toString('utf-8');
-            // نأخذ أول 1500 حرف فقط لتقليل حجم الطلب على Gemini
-            readmeContent = readmeContent.substring(0, 1500); 
+            readmeContent = readmeContent.substring(0, 1000); // تقليل الحجم لضمان قبوله في Gemini
         } else {
             readmeContent = "لا يوجد ملف README متاح لهذا المشروع.";
         }
 
-        // 2. إرسال النص إلى Gemini للتلخيص
+        // 2. التحقق من وجود مفتاح API
         const apiKey = process.env.GEMINI_API_KEY; 
-        const prompt = `أنت مساعد ذكي لمطور برمجيات. اقرأ ملف README التالي لمشروع "${repoName}" ولخصه في جملة واحدة أو جملتين كحد أقصى باللغة العربية ليكون وصفاً جذاباً في معرض الأعمال (Portfolio). لا تستخدم مقدمات مثل "هذا المشروع عبارة عن" أو "الملخص هو"، أعطني الوصف التقني والتسويقي مباشرة:\n\n${readmeContent}`;
+        if (!apiKey) {
+            console.error("CRITICAL: GEMINI_API_KEY is missing!");
+            return { 
+                statusCode: 200, 
+                body: JSON.stringify({ summary: "مفتاح API غير متوفر في الخادم." }) 
+            };
+        }
 
+        const prompt = `أنت مساعد ذكي لمطور برمجيات. اقرأ ملف README التالي لمشروع "${repoName}" ولخصه في جملة واحدة أو جملتين كحد أقصى باللغة العربية ليكون وصفاً جذاباً في معرض الأعمال (Portfolio). لا تستخدم مقدمات، أعطني الوصف التقني والتسويقي مباشرة:\n\n${readmeContent}`;
+
+        // 3. الاتصال بـ Gemini
         const geminiRes = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
@@ -34,18 +43,33 @@ exports.handler = async function(event, context) {
         });
 
         const data = await geminiRes.json();
-        const summary = data.candidates[0].content.parts[0].text.trim();
+
+        // 4. التقاط رسالة الخطأ من Gemini إن وجدت (هذا ما سيحل مشكلتك)
+        if (data.error) {
+            console.error(`Gemini API Error for ${repoName}:`, data.error.message);
+            return {
+                statusCode: 200, // نرجع 200 حتى لا ينهار المتصفح
+                body: JSON.stringify({ summary: `حدث خطأ من الذكاء الاصطناعي: ${data.error.message}` })
+            };
+        }
+
+        // 5. استخراج النص بأمان
+        let summary = "تعذر توليد الملخص.";
+        if (data.candidates && data.candidates.length > 0) {
+            summary = data.candidates[0].content.parts[0].text.trim();
+        }
 
         return {
             statusCode: 200,
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ summary })
         };
+        
     } catch (error) {
-        console.error(error);
+        console.error("Internal Server Error:", error);
         return { 
             statusCode: 500, 
-            body: JSON.stringify({ error: "فشل في توليد النبذة" }) 
+            body: JSON.stringify({ summary: "حدث خطأ في الخادم." }) 
         };
     }
 };
