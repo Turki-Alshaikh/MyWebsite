@@ -3,8 +3,8 @@ document.getElementById('year').innerText = new Date().getFullYear();
 
 const translations = {
     ar: {
-        hero_name: "تركي الشيخ", 
-        hero_title_1: "خريج علوم حاسب", 
+        hero_name: "تركي الشيخ",
+        hero_title_1: "خريج علوم حاسب",
         hero_title_2: "أخصائي تقنية معلومات",
         location: "جدة، المملكة العربية السعودية",
         about_title: "نبذة عني",
@@ -18,22 +18,22 @@ const translations = {
         skills_ai: "الذكاء الاصطناعي والأتمتة",
         skills_sys: "تحليل الأنظمة",
         projects_title: "أبرز المشاريع",
-        mfatihy_role: "المؤسس والمطور الرئيسي", 
-        mfatihy_p1: "بناء وتوسيع منصة رقمية مؤتمتة لتوزيع البرمجيات.", 
+        mfatihy_role: "المؤسس والمطور الرئيسي",
+        mfatihy_p1: "بناء وتوسيع منصة رقمية مؤتمتة لتوزيع البرمجيات.",
         mfatihy_p2: "هندسة نظام تسليم آلي متكامل باستخدام تقنيات الـ Webhooks.",
-        mystudies_role: "مطور برمجيات", 
-        mystudies_p1: "تطوير تطبيق جوال متكامل باستخدام Flutter و Dart بنظام BLOC.", 
+        mystudies_role: "مطور برمجيات",
+        mystudies_p1: "تطوير تطبيق جوال متكامل باستخدام Flutter و Dart بنظام BLOC.",
         mystudies_p2: "دمج تقنيات الذكاء الاصطناعي (Google ML Kit) لاستخراج نصوص المواعيد آلياً.",
-        git_projects: "المشاريع المثبتة على GitHub", 
+        git_projects: "المشاريع المثبتة على GitHub",
         loading: "جاري جلب المشاريع من خوادم GitHub...",
-        edu_degree: "دبلوم في علوم حاسب", 
-        edu_school: "كلية الجبيل الصناعية", 
+        edu_degree: "دبلوم في علوم حاسب",
+        edu_school: "كلية الجبيل الصناعية",
         edu_cs: "Computer Science",
         edu_date: "تاريخ التخرج: أبريل 2026",
     },
     en: {
-        hero_name: "Turki Alshaikh", 
-        hero_title_1: "CS Graduate", 
+        hero_name: "Turki Alshaikh",
+        hero_title_1: "CS Graduate",
         hero_title_2: "IT Specialist",
         location: "Jeddah, Saudi Arabia",
         about_title: "About Me",
@@ -47,16 +47,16 @@ const translations = {
         skills_ai: "AI & Automation",
         skills_sys: "System Analysis",
         projects_title: "Featured Projects",
-        mfatihy_role: "Founder & Lead Developer", 
-        mfatihy_p1: "Built and scaled an automated digital software distribution platform.", 
+        mfatihy_role: "Founder & Lead Developer",
+        mfatihy_p1: "Built and scaled an automated digital software distribution platform.",
         mfatihy_p2: "Engineered an integrated auto-delivery system via webhooks.",
-        mystudies_role: "Software Developer", 
-        mystudies_p1: "Developed a cross-platform mobile application using Flutter & Dart (BLoC).", 
+        mystudies_role: "Software Developer",
+        mystudies_p1: "Developed a cross-platform mobile application using Flutter & Dart (BLoC).",
         mystudies_p2: "Integrated Google ML Kit (OCR) to automate extraction of exam deadlines.",
-        git_projects: "GitHub Pinned Repos", 
+        git_projects: "GitHub Pinned Repos",
         loading: "Fetching pinned repos from GitHub...",
-        edu_degree: "Associate Degree in Computer Science", 
-        edu_school: "Jubail Industrial College", 
+        edu_degree: "Associate Degree in Computer Science",
+        edu_school: "Jubail Industrial College",
         edu_cs: "Computer Science",
         edu_date: "Graduation: April 2026",
     }
@@ -69,10 +69,10 @@ function toggleLanguage() {
     const htmlTag = document.documentElement;
     htmlTag.lang = currentLang;
     htmlTag.dir = currentLang === 'ar' ? 'rtl' : 'ltr';
-    
+
     document.querySelectorAll('[data-i18n]').forEach(el => {
         const key = el.getAttribute('data-i18n');
-        if(translations[currentLang][key]) {
+        if (translations[currentLang][key]) {
             el.innerHTML = translations[currentLang][key];
         }
     });
@@ -107,10 +107,10 @@ function toggleLanguage() {
     const htmlTag = document.documentElement;
     htmlTag.lang = currentLang;
     htmlTag.dir = currentLang === 'ar' ? 'rtl' : 'ltr';
-    
+
     document.querySelectorAll('[data-i18n]').forEach(el => {
         const key = el.getAttribute('data-i18n');
-        if(translations[currentLang][key]) {
+        if (translations[currentLang][key]) {
             el.innerHTML = translations[currentLang][key];
         }
     });
@@ -125,16 +125,16 @@ const GITHUB_USER = 'Turki-Alshaikh';
 
 async function loadGithubProjects() {
     const grid = document.getElementById('githubGrid');
-    
+
     try {
         // جلب المشاريع مرتبة حسب الأحدث
         const res = await fetch(`https://api.github.com/users/${GITHUB_USER}/repos?sort=updated&per_page=20`);
-        if(!res.ok) throw new Error("GitHub API failed");
-        
+        if (!res.ok) throw new Error("GitHub API failed");
+
         let repos = await res.json();
         globalRepos = repos.filter(r => !r.fork); // تخزين المشاريع الأساسية (بدون النسخ المنسوخة)
 
-        if(globalRepos.length === 0) {
+        if (globalRepos.length === 0) {
             grid.innerHTML = `<p class="col-span-full text-center text-gray-500/50" data-i18n="no_projects">لا توجد مشاريع حالياً.</p>`;
             return;
         }
@@ -149,12 +149,12 @@ async function loadGithubProjects() {
 
 function renderGithubProjects(repos) {
     const grid = document.getElementById('githubGrid');
-    grid.innerHTML = ''; 
+    grid.innerHTML = '';
 
     repos.forEach(repo => {
         const card = document.createElement('div');
         card.className = 'glass-card p-6 flex flex-col h-full relative overflow-hidden group hover:-translate-y-1 transition-transform duration-300';
-        
+
         // استخراج الوصف من قسم About في GitHub، أو وضع رسالة افتراضية
         const fallbackText = currentLang === 'ar' ? "لا يوجد وصف متاح لهذا المشروع." : "No description available for this project.";
         const projectDescription = repo.description || fallbackText;
@@ -169,9 +169,9 @@ function renderGithubProjects(repos) {
             <h3 class="text-xl font-bold mb-3 text-white truncate" dir="ltr" title="${repo.name}">${repo.name}</h3>
             
             <div class="flex-grow mb-5">
-                <p class="text-sm text-gray-400 leading-relaxed min-h-[40px] line-clamp-3">
-                    ${projectDescription}
-                </p>
+<p class="text-sm text-gray-400 leading-relaxed min-h-[40px]">
+    ${projectDescription}
+</p>
             </div>
             
             <div class="mt-auto pt-4 border-t border-white/5 flex items-center justify-between text-xs font-semibold text-gray-500" dir="ltr">
@@ -185,7 +185,7 @@ function renderGithubProjects(repos) {
                 </span>
             </div>
         `;
-        
+
         grid.appendChild(card);
     });
 }
