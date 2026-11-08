@@ -41,6 +41,7 @@
 
 The portfolio utilizes the public GitHub REST API to dynamically render project cards. It filters out forked repositories and displays the project name, the `About` description directly from the repo, programming language, and star count.
 
+
 ```javascript
 // Example of the fetch logic used in script.js
 const res = await fetch(`[https://api.github.com/users/Turki-Alshaikh/repos?sort=updated&per_page=20](https://api.github.com/users/Turki-Alshaikh/repos?sort=updated&per_page=20)`);
