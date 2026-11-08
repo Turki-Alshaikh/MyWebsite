@@ -47,7 +47,7 @@ const res = await fetch(`[https://api.github.com/users/Turki-Alshaikh/repos?sort
 let repos = await res.json();
 
 ```
-
+ 
 ## 👨‍💻 Author
 
 **Turki Alshaikh**
