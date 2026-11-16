@@ -1,15 +1,18 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Turki Alshaikh</title>
-    
+
     <!-- Google Fonts: Cairo (Arabic) & Outfit (English) -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;800&family=Outfit:wght@300;400;600;700;800&display=swap" rel="stylesheet">
-    
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;800&family=Outfit:wght@300;400;600;700;800&display=swap"
+        rel="stylesheet">
+
     <!-- FontAwesome 6 -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
@@ -24,10 +27,10 @@
                         outfit: ['Outfit', 'sans-serif'],
                     },
                     colors: {
-                        darkBase: '#030712', 
-                        primary: '#38bdf8',   
-                        secondary: '#818cf8', 
-                        accent: '#c084fc',    
+                        darkBase: '#030712',
+                        primary: '#38bdf8',
+                        secondary: '#818cf8',
+                        accent: '#c084fc',
                     },
                     animation: {
                         'blob': 'blob 15s infinite alternate',
@@ -52,10 +55,11 @@
 
     <!-- Custom CSS -->
     <link rel="stylesheet" href="style.css">
-    
+
     <!-- Custom JS -->
     <script src="script.js" defer></script>
 </head>
+
 <body>
 
     <!-- Ambient Background -->
@@ -64,15 +68,18 @@
     <div class="glow-orb glow-3 animate-blob"></div>
 
     <!-- Header / Language Toggle -->
-    <header class="fixed top-0 w-full z-50 p-6 flex justify-between items-center pointer-events-none backdrop-blur-sm bg-[#030712]/30 border-b border-white/5">
+    <header
+        class="fixed top-0 w-full z-50 p-6 flex justify-between items-center pointer-events-none backdrop-blur-sm bg-[#030712]/30 border-b border-white/5">
         <div class="text-2xl font-black tracking-widest text-white/80 pointer-events-auto">TURKI</div>
-        <button onclick="toggleLanguage()" class="glass-btn !p-3 rounded-full pointer-events-auto text-primary" title="Toggle Language">
+        <button onclick="toggleLanguage()" class="glass-btn !p-3 rounded-full pointer-events-auto text-primary"
+            title="Toggle Language">
             <i class="fa-solid fa-language text-xl"></i>
         </button>
     </header>
 
     <!-- Side Navigation Dots (Desktop) -->
-    <div class="fixed right-6 top-1/2 -translate-y-1/2 z-50 flex flex-col gap-4 rtl:right-auto rtl:left-6 hidden md:flex">
+    <div
+        class="fixed right-6 top-1/2 -translate-y-1/2 z-50 flex flex-col gap-4 rtl:right-auto rtl:left-6 hidden md:flex">
         <a href="#hero" class="nav-dot active" data-target="hero"></a>
         <a href="#about" class="nav-dot" data-target="about"></a>
         <a href="#projects" class="nav-dot" data-target="projects"></a>
@@ -81,18 +88,20 @@
 
     <!-- Main Content -->
     <main>
-        
+
         <!-- ================= SECTION 1: HERO ================= -->
         <section id="hero">
             <div class="max-w-4xl w-full text-center animate-float">
                 <!-- تم زيادة المسافة في الأسفل من mb-4 إلى mb-14 -->
-                <h1 class="text-5xl md:text-7xl font-extrabold mb-8 text-gradient tracking-tight pb-6 leading-normal" data-i18n="hero_name">
+                <h1 class="text-5xl md:text-7xl font-extrabold mb-8 text-gradient tracking-tight pb-6 leading-normal"
+                    data-i18n="hero_name">
                     تركي الشيخ
                 </h1>
-                
-                <h2 class="text-xl md:text-3xl font-bold mb-6 flex flex-col md:flex-row items-center justify-center gap-2 md:gap-4">
-                    <span class="text-gradient-primary" data-i18n="hero_title_1">خريج علوم حاسب</span> 
-                    <span class="hidden md:inline text-white/20">|</span> 
+
+                <h2
+                    class="text-xl md:text-3xl font-bold mb-6 flex flex-col md:flex-row items-center justify-center gap-2 md:gap-4">
+                    <span class="text-gradient-primary" data-i18n="hero_title_1">خريج علوم حاسب</span>
+                    <span class="hidden md:inline text-white/20">|</span>
                     <span class="text-gray-300" data-i18n="hero_title_2">أخصائي تقنية معلومات</span>
                 </h2>
 
@@ -102,18 +111,21 @@
                 </p>
 
                 <div class="flex flex-col sm:flex-row justify-center items-center gap-4">
-                    <a href="mailto:Turki1Alshaikh@gmail.com" class="glass-btn hover:text-[#ea4335] group w-full sm:w-auto">
-                        <i class="fa-solid fa-envelope text-lg group-hover:scale-110 transition-transform"></i> 
+                    <a href="mailto:Turki1Alshaikh@gmail.com"
+                        class="glass-btn hover:text-[#ea4335] group w-full sm:w-auto">
+                        <i class="fa-solid fa-envelope text-lg group-hover:scale-110 transition-transform"></i>
                         <span dir="ltr">Turki1Alshaikh@gmail.com</span>
                     </a>
-                    <a href="https://linkedin.com/in/Turki--Alshaikh" target="_blank" class="glass-btn hover:text-[#0077b5] group w-full sm:w-auto">
-                        <i class="fa-brands fa-linkedin text-lg group-hover:scale-110 transition-transform"></i> 
+                    <a href="https://linkedin.com/in/Turki--Alshaikh" target="_blank"
+                        class="glass-btn hover:text-[#0077b5] group w-full sm:w-auto">
+                        <i class="fa-brands fa-linkedin text-lg group-hover:scale-110 transition-transform"></i>
                         <span dir="ltr">Turki--Alshaikh</span>
                     </a>
                 </div>
             </div>
-            
-            <a href="#about" class="absolute bottom-8 text-white/30 hover:text-white transition-colors animate-bounce hidden md:block">
+
+            <a href="#about"
+                class="absolute bottom-8 text-white/30 hover:text-white transition-colors animate-bounce hidden md:block">
                 <i class="fa-solid fa-chevron-down text-2xl"></i>
             </a>
         </section>
@@ -121,7 +133,7 @@
         <!-- ================= SECTION 2: ABOUT & SKILLS ================= -->
         <section id="about">
             <div class="max-w-6xl w-full grid grid-cols-1 lg:grid-cols-2 gap-8 items-stretch h-full">
-                
+
                 <!-- Bio Panel -->
                 <div class="glass-panel p-8 md:p-10 flex flex-col justify-center">
                     <div class="flex items-center gap-4 mb-6">
@@ -130,11 +142,14 @@
                     </div>
                     <div class="space-y-5 text-gray-300 text-lg leading-relaxed">
                         <p data-i18n="about_p1">
-                            خريج علوم حاسب بشغف كبير تجاه تطوير البرمجيات، الشبكات، والبنية التحتية لتقنية المعلومات. أدمج بين المهارات التقنية القوية وعقلية الأعمال، وهو ما تُرجم عملياً بتأسيس وتطوير منصة 
-                            <a href="https://mfatihy.com/" target="_blank" class="text-primary hover:text-white font-bold transition-colors">مفاتيحي (Mfatihy)</a>.
+                            خريج علوم حاسب بشغف كبير تجاه تطوير البرمجيات، الشبكات، والبنية التحتية لتقنية المعلومات.
+                            أدمج بين المهارات التقنية القوية وعقلية الأعمال، وهو ما تُرجم عملياً بتأسيس وتطوير منصة
+                            <a href="https://mfatihy.com/" target="_blank"
+                                class="text-primary hover:text-white font-bold transition-colors">مفاتيحي (Mfatihy)</a>.
                         </p>
                         <p data-i18n="about_p2">
-                            أمتلك مهارة عالية في برمجة البايثون، تطوير واجهات الويب، إدارة قواعد البيانات، وتوظيف أدوات الذكاء الاصطناعي لتسريع حل المشكلات التقنية وتحسين سير العمل.
+                            أمتلك مهارة عالية في برمجة البايثون، تطوير واجهات الويب، إدارة قواعد البيانات، وتوظيف أدوات
+                            الذكاء الاصطناعي لتسريع حل المشكلات التقنية وتحسين سير العمل.
                         </p>
                     </div>
                 </div>
@@ -145,9 +160,9 @@
                         <i class="fa-solid fa-code text-3xl text-secondary"></i>
                         <h2 class="text-3xl font-bold text-white" data-i18n="skills_title">التقنيات والأدوات</h2>
                     </div>
-                    
+
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                        
+
                         <!-- Programming -->
                         <div class="glass-card p-4 flex flex-col gap-3">
                             <div class="flex items-center gap-2 text-primary">
@@ -155,11 +170,16 @@
                                 <span class="font-bold text-sm" data-i18n="skills_prog">البرمجة</span>
                             </div>
                             <div class="flex flex-wrap gap-1.5" dir="ltr">
-                                <span class="px-2.5 py-1 bg-white/5 border border-white/10 rounded-md text-[11px] text-gray-300">Dart</span>
-                                <span class="px-2.5 py-1 bg-white/5 border border-white/10 rounded-md text-[11px] text-gray-300">Python</span>
-                                <span class="px-2.5 py-1 bg-white/5 border border-white/10 rounded-md text-[11px] text-gray-300">Java</span>
-                                <span class="px-2.5 py-1 bg-white/5 border border-white/10 rounded-md text-[11px] text-gray-300">JavaScript</span>
-                                <span class="px-2.5 py-1 bg-white/5 border border-white/10 rounded-md text-[11px] text-gray-300">HTML/CSS</span>
+                                <span
+                                    class="px-2.5 py-1 bg-white/5 border border-white/10 rounded-md text-[11px] text-gray-300">Dart</span>
+                                <span
+                                    class="px-2.5 py-1 bg-white/5 border border-white/10 rounded-md text-[11px] text-gray-300">Python</span>
+                                <span
+                                    class="px-2.5 py-1 bg-white/5 border border-white/10 rounded-md text-[11px] text-gray-300">Java</span>
+                                <span
+                                    class="px-2.5 py-1 bg-white/5 border border-white/10 rounded-md text-[11px] text-gray-300">JavaScript</span>
+                                <span
+                                    class="px-2.5 py-1 bg-white/5 border border-white/10 rounded-md text-[11px] text-gray-300">HTML/CSS</span>
                             </div>
                         </div>
 
@@ -170,9 +190,14 @@
                                 <span class="font-bold text-sm" data-i18n="skills_fw">أطر العمل والهيكلة</span>
                             </div>
                             <div class="flex flex-wrap gap-1.5" dir="ltr">
-                                <span class="px-2.5 py-1 bg-white/5 border border-white/10 rounded-md text-[11px] text-gray-300">Flutter</span>
-                                <span class="px-2.5 py-1 bg-white/5 border border-white/10 rounded-md text-[11px] text-gray-300">BLoC Pattern</span>
-                                <span class="px-2.5 py-1 bg-white/5 border border-white/10 rounded-md text-[11px] text-gray-300">Layered Architecture</span>
+                                <span
+                                    class="px-2.5 py-1 bg-white/5 border border-white/10 rounded-md text-[11px] text-gray-300">Flutter</span>
+                                <span
+                                    class="px-2.5 py-1 bg-white/5 border border-white/10 rounded-md text-[11px] text-gray-300">BLoC
+                                    Pattern</span>
+                                <span
+                                    class="px-2.5 py-1 bg-white/5 border border-white/10 rounded-md text-[11px] text-gray-300">Layered
+                                    Architecture</span>
                             </div>
                         </div>
 
@@ -183,9 +208,14 @@
                                 <span class="font-bold text-sm" data-i18n="skills_tech">الدعم الفني</span>
                             </div>
                             <div class="flex flex-wrap gap-1.5" dir="ltr">
-                                <span class="px-2.5 py-1 bg-white/5 border border-white/10 rounded-md text-[11px] text-gray-300">HW/SW Troubleshooting</span>
-                                <span class="px-2.5 py-1 bg-white/5 border border-white/10 rounded-md text-[11px] text-gray-300">PC Assembly</span>
-                                <span class="px-2.5 py-1 bg-white/5 border border-white/10 rounded-md text-[11px] text-gray-300">Licensing</span>
+                                <span
+                                    class="px-2.5 py-1 bg-white/5 border border-white/10 rounded-md text-[11px] text-gray-300">HW/SW
+                                    Troubleshooting</span>
+                                <span
+                                    class="px-2.5 py-1 bg-white/5 border border-white/10 rounded-md text-[11px] text-gray-300">PC
+                                    Assembly</span>
+                                <span
+                                    class="px-2.5 py-1 bg-white/5 border border-white/10 rounded-md text-[11px] text-gray-300">Licensing</span>
                             </div>
                         </div>
 
@@ -196,10 +226,14 @@
                                 <span class="font-bold text-sm" data-i18n="skills_db">قواعد البيانات والسحابة</span>
                             </div>
                             <div class="flex flex-wrap gap-1.5" dir="ltr">
-                                <span class="px-2.5 py-1 bg-white/5 border border-white/10 rounded-md text-[11px] text-gray-300">SQLite</span>
-                                <span class="px-2.5 py-1 bg-white/5 border border-white/10 rounded-md text-[11px] text-gray-300">SQL</span>
-                                <span class="px-2.5 py-1 bg-white/5 border border-white/10 rounded-md text-[11px] text-gray-300">Firebase</span>
-                                <span class="px-2.5 py-1 bg-white/5 border border-white/10 rounded-md text-[11px] text-gray-300">AWS</span>
+                                <span
+                                    class="px-2.5 py-1 bg-white/5 border border-white/10 rounded-md text-[11px] text-gray-300">SQLite</span>
+                                <span
+                                    class="px-2.5 py-1 bg-white/5 border border-white/10 rounded-md text-[11px] text-gray-300">SQL</span>
+                                <span
+                                    class="px-2.5 py-1 bg-white/5 border border-white/10 rounded-md text-[11px] text-gray-300">Firebase</span>
+                                <span
+                                    class="px-2.5 py-1 bg-white/5 border border-white/10 rounded-md text-[11px] text-gray-300">AWS</span>
                             </div>
                         </div>
 
@@ -210,9 +244,14 @@
                                 <span class="font-bold text-sm" data-i18n="skills_ai">الذكاء الاصطناعي والأتمتة</span>
                             </div>
                             <div class="flex flex-wrap gap-1.5" dir="ltr">
-                                <span class="px-2.5 py-1 bg-white/5 border border-white/10 rounded-md text-[11px] text-gray-300">Google ML Kit</span>
-                                <span class="px-2.5 py-1 bg-white/5 border border-white/10 rounded-md text-[11px] text-gray-300">Claude AI</span>
-                                <span class="px-2.5 py-1 bg-white/5 border border-white/10 rounded-md text-[11px] text-gray-300">Automatio.ai</span>
+                                <span
+                                    class="px-2.5 py-1 bg-white/5 border border-white/10 rounded-md text-[11px] text-gray-300">Google
+                                    ML Kit</span>
+                                <span
+                                    class="px-2.5 py-1 bg-white/5 border border-white/10 rounded-md text-[11px] text-gray-300">Claude
+                                    AI</span>
+                                <span
+                                    class="px-2.5 py-1 bg-white/5 border border-white/10 rounded-md text-[11px] text-gray-300">Automatio.ai</span>
                             </div>
                         </div>
 
@@ -223,9 +262,13 @@
                                 <span class="font-bold text-sm" data-i18n="skills_sys">تحليل الأنظمة</span>
                             </div>
                             <div class="flex flex-wrap gap-1.5" dir="ltr">
-                                <span class="px-2.5 py-1 bg-white/5 border border-white/10 rounded-md text-[11px] text-gray-300">Lucidchart</span>
-                                <span class="px-2.5 py-1 bg-white/5 border border-white/10 rounded-md text-[11px] text-gray-300">GitHub</span>
-                                <span class="px-2.5 py-1 bg-white/5 border border-white/10 rounded-md text-[11px] text-gray-300">DFD/ERD Design</span>
+                                <span
+                                    class="px-2.5 py-1 bg-white/5 border border-white/10 rounded-md text-[11px] text-gray-300">Lucidchart</span>
+                                <span
+                                    class="px-2.5 py-1 bg-white/5 border border-white/10 rounded-md text-[11px] text-gray-300">GitHub</span>
+                                <span
+                                    class="px-2.5 py-1 bg-white/5 border border-white/10 rounded-md text-[11px] text-gray-300">DFD/ERD
+                                    Design</span>
                             </div>
                         </div>
                     </div>
@@ -234,51 +277,70 @@
             </div>
         </section>
 
-      <!-- ================= SECTION 3: PROJECTS ================= -->
+        <!-- ================= SECTION 3: PROJECTS ================= -->
         <section id="projects" style="justify-content: flex-start;">
             <div class="w-full max-w-6xl mx-auto">
-                
+
                 <div class="flex items-center gap-4 mb-10">
                     <i class="fa-solid fa-layer-group text-4xl text-white"></i>
                     <h2 class="text-4xl font-extrabold text-white" data-i18n="projects_title">
                         أبرز المشاريع
                     </h2>
                 </div>
-                
+
                 <!--  Visual Featured Projects Grid  -->
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-16">
-                    
+
                     <!-- 1. Mfatihy Platform -->
-                    <div class="glass-panel overflow-hidden group hover:-translate-y-1 transition-transform duration-300 flex flex-col relative">
-                        <div class="h-48 overflow-hidden relative flex items-center justify-center bg-gradient-to-br from-secondary/20 to-primary/20">
-                            <i class="fa-solid fa-store text-7xl text-white/50 group-hover:scale-110 transition-transform duration-500 drop-shadow-2xl"></i>
-                            <div class="absolute inset-0 bg-gradient-to-t from-[#030712] to-transparent"></div>
+                    <div
+                        class="glass-panel overflow-hidden group hover:-translate-y-1 transition-transform duration-300 flex flex-col relative">
+                        <div class="h-48 overflow-hidden relative">
+                            <img src="https://github.com/Turki-Alshaikh/MyWebsite/blob/main/imgs/MfatihyBanner.png?raw=true"
+                                class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                                alt="Mfatihy">
+                            <div
+                                class="absolute inset-0 bg-gradient-to-t from-[#030712] via-transparent to-transparent">
+                            </div>
                         </div>
                         <div class="p-6 flex-grow flex flex-col -mt-4 relative z-10">
                             <div class="flex justify-between items-start mb-2">
                                 <h3 class="text-2xl font-bold text-white">
-                                    <a href="https://mfatihy.com/" target="_blank" class="hover:text-primary transition-colors">منصة مفاتيحي</a>
+                                    <a href="https://mfatihy.com/" target="_blank"
+                                        class="hover:text-primary transition-colors">منصة مفاتيحي</a>
                                 </h3>
                                 <i class="fa-solid fa-store text-2xl text-primary/70"></i>
                             </div>
-                            <p class="text-primary font-semibold text-sm mb-3" data-i18n="mfatihy_role">المؤسس والمطور الرئيسي</p>
-                            <p class="text-gray-300 text-sm leading-relaxed mb-6 flex-grow" data-i18n="mfatihy_desc">بناء وتوسيع منصة رقمية مؤتمتة لتوزيع البرمجيات مع هندسة نظام تسليم آلي متكامل.</p>
-                            <a href="https://mfatihy.com/" target="_blank" class="glass-btn w-full !text-sm !py-2">
-                                <i class="fa-solid fa-arrow-up-right-from-square"></i> <span data-i18n="view_project">عرض المشروع</span>
+                            <p class="text-primary font-semibold text-sm mb-3" data-i18n="mfatihy_role">المؤسس والمطور
+                                الرئيسي</p>
+                            <p class="text-gray-300 text-sm leading-relaxed mb-6 flex-grow" data-i18n="mfatihy_desc">
+                                بناء وتوسيع منصة رقمية مؤتمتة لتوزيع البرمجيات مع هندسة نظام تسليم آلي متكامل.</p>
+                            <a href="https://mfatihy.com/" target="_blank"
+                                class="glass-btn w-full !text-sm !py-2 hover:!border-primary/50 hover:!bg-primary/10">
+                                <i class="fa-solid fa-arrow-up-right-from-square"></i> <span
+                                    data-i18n="visit_store">الدخول للمتجر</span>
                             </a>
                         </div>
                     </div>
 
                     <!-- 2. MyStudies Graduation Project -->
-                    <div class="glass-panel overflow-hidden group hover:-translate-y-1 transition-transform duration-300 flex flex-col relative">
+                    <div
+                        class="glass-panel overflow-hidden group hover:-translate-y-1 transition-transform duration-300 flex flex-col relative">
                         <div class="h-48 overflow-hidden relative">
-                            <img src="https://github.com/Turki-Alshaikh/mystudies-graduation-project/raw/main/assets/screenshots/info.jpg" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" alt="MyStudies">
-                            <div class="absolute inset-0 bg-gradient-to-t from-[#030712] via-transparent to-transparent"></div>
+                            <img src="https://github.com/Turki-Alshaikh/mystudies-graduation-project/raw/main/assets/screenshots/info.jpg"
+                                class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                                alt="MyStudies">
+                            <div
+                                class="absolute inset-0 bg-gradient-to-t from-[#030712] via-transparent to-transparent">
+                            </div>
                             <!-- App Screenshots Overlay -->
-                            <div class="absolute bottom-3 right-4 flex gap-2 z-20 rtl:right-4 rtl:left-auto ltr:left-4 ltr:right-auto">
-                                <img src="https://github.com/Turki-Alshaikh/mystudies-graduation-project/raw/main/assets/screenshots/calendar.png" class="w-10 h-16 rounded border border-white/20 shadow-lg object-cover">
-                                <img src="https://github.com/Turki-Alshaikh/mystudies-graduation-project/raw/main/assets/screenshots/dashboard.png" class="w-10 h-16 rounded border border-white/20 shadow-lg object-cover">
-                                <img src="https://github.com/Turki-Alshaikh/mystudies-graduation-project/raw/main/assets/screenshots/gpa.png" class="w-10 h-16 rounded border border-white/20 shadow-lg object-cover">
+                            <div
+                                class="absolute bottom-3 right-4 flex gap-2 z-20 rtl:right-4 rtl:left-auto ltr:left-4 ltr:right-auto">
+                                <img src="https://github.com/Turki-Alshaikh/mystudies-graduation-project/raw/main/assets/screenshots/calendar.png"
+                                    class="w-10 h-16 rounded border border-white/20 shadow-lg object-cover">
+                                <img src="https://github.com/Turki-Alshaikh/mystudies-graduation-project/raw/main/assets/screenshots/dashboard.png"
+                                    class="w-10 h-16 rounded border border-white/20 shadow-lg object-cover">
+                                <img src="https://github.com/Turki-Alshaikh/mystudies-graduation-project/raw/main/assets/screenshots/gpa.png"
+                                    class="w-10 h-16 rounded border border-white/20 shadow-lg object-cover">
                             </div>
                         </div>
                         <div class="p-6 flex-grow flex flex-col -mt-4 relative z-10">
@@ -286,34 +348,46 @@
                                 <h3 class="text-2xl font-bold text-white" data-i18n="mystudies_title">MyStudies</h3>
                                 <i class="fa-solid fa-graduation-cap text-2xl text-secondary/70"></i>
                             </div>
-                            <p class="text-secondary font-semibold text-sm mb-3" data-i18n="mystudies_role">مشروع التخرج</p>
-                            <p class="text-gray-300 text-sm leading-relaxed mb-6 flex-grow" data-i18n="mystudies_desc">تطبيق جوال متكامل لإدارة الجداول والمواعيد الجامعية، مدمج بالذكاء الاصطناعي (OCR) لاستخراج النصوص آلياً.</p>
-                            <a href="https://github.com/Turki-Alshaikh/mystudies-graduation-project" target="_blank" class="glass-btn w-full !text-sm !py-2">
+                            <p class="text-secondary font-semibold text-sm mb-3" data-i18n="mystudies_role">مشروع التخرج
+                            </p>
+                            <p class="text-gray-300 text-sm leading-relaxed mb-6 flex-grow" data-i18n="mystudies_desc">
+                                تطبيق جوال متكامل لإدارة الجداول والمواعيد الجامعية، مدمج بالذكاء الاصطناعي (OCR)
+                                لاستخراج النصوص آلياً.</p>
+                            <a href="https://github.com/Turki-Alshaikh/mystudies-graduation-project" target="_blank"
+                                class="glass-btn w-full !text-sm !py-2">
                                 <i class="fa-brands fa-github"></i> <span data-i18n="view_project">عرض المشروع</span>
                             </a>
                         </div>
                     </div>
 
                     <!-- 3. DeskFoldersPro -->
-                    <div class="glass-panel overflow-hidden group hover:-translate-y-1 transition-transform duration-300 flex flex-col relative">
-                        <div class="h-48 overflow-hidden relative flex items-center justify-center bg-gradient-to-br from-primary/20 to-accent/20">
-                            <img src="https://github.com/Turki-Alshaikh/DeskFoldersPro/raw/main/.ico/App_Icon.ico" class="w-24 h-24 group-hover:scale-110 transition-transform duration-500 drop-shadow-2xl" alt="DeskFoldersPro">
+                    <div
+                        class="glass-panel overflow-hidden group hover:-translate-y-1 transition-transform duration-300 flex flex-col relative">
+                        <div
+                            class="h-48 overflow-hidden relative flex items-center justify-center bg-gradient-to-br from-primary/20 to-accent/20">
+                            <img src="https://github.com/Turki-Alshaikh/DeskFoldersPro/raw/main/.ico/App_Icon.ico"
+                                class="w-24 h-24 group-hover:scale-110 transition-transform duration-500 drop-shadow-2xl"
+                                alt="DeskFoldersPro">
                             <div class="absolute inset-0 bg-gradient-to-t from-[#030712] to-transparent"></div>
                         </div>
                         <div class="p-6 flex-grow flex flex-col -mt-4 relative z-10">
                             <div class="flex justify-between items-start mb-2">
-                                <h3 class="text-2xl font-bold text-white" data-i18n="deskfolders_title">DeskFoldersPro</h3>
+                                <h3 class="text-2xl font-bold text-white" data-i18n="deskfolders_title">DeskFoldersPro
+                                </h3>
                                 <i class="fa-brands fa-windows text-2xl text-primary/70"></i>
                             </div>
                             <p class="text-primary font-semibold text-sm mb-3">Windows App</p>
-                            <p class="text-gray-300 text-sm leading-relaxed mb-6 flex-grow" data-i18n="deskfolders_desc">أداة ذكية لتنظيم ملفات سطح المكتب تلقائياً بضغطة زر لنظام ويندوز.</p>
-                            <a href="https://github.com/Turki-Alshaikh/DeskFoldersPro" target="_blank" class="glass-btn w-full !text-sm !py-2">
+                            <p class="text-gray-300 text-sm leading-relaxed mb-6 flex-grow"
+                                data-i18n="deskfolders_desc">أداة ذكية لتنظيم ملفات سطح المكتب تلقائياً بضغطة زر لنظام
+                                ويندوز.</p>
+                            <a href="https://github.com/Turki-Alshaikh/DeskFoldersPro" target="_blank"
+                                class="glass-btn w-full !text-sm !py-2">
                                 <i class="fa-brands fa-github"></i> <span data-i18n="view_project">عرض المشروع</span>
                             </a>
                         </div>
                     </div>
 
-                    <!-- 4. AthanWidget -->
+       <!-- 4. AthanWidget -->
                     <div class="glass-panel overflow-hidden group hover:-translate-y-1 transition-transform duration-300 flex flex-col relative">
                         <div class="h-48 overflow-hidden relative">
                             <img src="https://github.com/Turki-Alshaikh/AthanWidget/raw/main/img/banner.jpg" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" alt="AthanWidget">
@@ -330,9 +404,16 @@
                             </div>
                             <p class="text-accent font-semibold text-sm mb-3">Desktop Widget</p>
                             <p class="text-gray-300 text-sm leading-relaxed mb-6 flex-grow" data-i18n="athan_desc">ويدجت احترافي لعرض مواقيت الصلاة بشكل أنيق ومباشر على سطح المكتب.</p>
-                            <a href="https://github.com/Turki-Alshaikh/AthanWidget" target="_blank" class="glass-btn w-full !text-sm !py-2">
-                                <i class="fa-brands fa-github"></i> <span data-i18n="view_project">عرض المشروع</span>
-                            </a>
+                            
+                            <!-- الأزرار (مقسمة نصفين) -->
+                            <div class="flex gap-3">
+                                <a href="https://github.com/Turki-Alshaikh/AthanWidget" target="_blank" class="glass-btn flex-1 !text-sm !py-2 !px-2">
+                                    <i class="fa-brands fa-github"></i> <span data-i18n="view_project">عرض المشروع</span>
+                                </a>
+                                <a href="https://apps.microsoft.com/detail/9NCS14KCQ1SP" target="_blank" class="glass-btn flex-1 !text-sm !py-2 !px-2 hover:!border-[#00a4ef]/50 hover:!bg-[#00a4ef]/10">
+                                    <i class="fa-brands fa-windows text-[#00a4ef]"></i> <span data-i18n="ms_store">Microsoft Store</span>
+                                </a>
+                            </div>
                         </div>
                     </div>
 
@@ -343,10 +424,14 @@
                     <i class="fa-solid fa-chart-line text-3xl text-accent"></i>
                     <h2 class="text-2xl font-bold text-gray-200" data-i18n="github_stats_title">إحصائيات GitHub</h2>
                 </div>
-                
+
                 <div class="flex flex-col lg:flex-row gap-6 mb-16 items-center justify-center glass-panel p-6">
-                    <img src="https://github-profile-summary-cards.vercel.app/api/cards/profile-details?username=Turki-Alshaikh&theme=transparent" alt="Turki's Profile Details" class="w-full lg:w-1/2 hover:scale-105 transition-transform duration-300" />
-                    <img src="https://github-profile-summary-cards.vercel.app/api/cards/repos-per-language?username=Turki-Alshaikh&theme=transparent" alt="Turki's Top Languages" class="w-full lg:w-1/2 hover:scale-105 transition-transform duration-300" />
+                    <img src="https://github-profile-summary-cards.vercel.app/api/cards/profile-details?username=Turki-Alshaikh&theme=transparent"
+                        alt="Turki's Profile Details"
+                        class="w-full lg:w-1/2 hover:scale-105 transition-transform duration-300" />
+                    <img src="https://github-profile-summary-cards.vercel.app/api/cards/repos-per-language?username=Turki-Alshaikh&theme=transparent"
+                        alt="Turki's Top Languages"
+                        class="w-full lg:w-1/2 hover:scale-105 transition-transform duration-300" />
                 </div>
 
                 <!-- Dynamic GitHub Pinned Repos -->
@@ -354,7 +439,7 @@
                     <i class="fa-brands fa-github text-3xl text-gray-400"></i>
                     <h2 class="text-2xl font-bold text-gray-200" data-i18n="git_projects">مستودعات GitHub</h2>
                 </div>
-                
+
                 <div id="githubGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                     <!-- Loading State -->
                     <div class="col-span-full flex flex-col items-center justify-center py-12 text-gray-500">
@@ -371,29 +456,32 @@
             <div class="glass-panel p-10 md:p-16 w-full max-w-4xl mx-auto text-center relative overflow-hidden">
                 <div class="absolute -top-20 -left-20 w-64 h-64 bg-primary/5 rounded-full blur-3xl"></div>
                 <div class="absolute -bottom-20 -right-20 w-64 h-64 bg-accent/5 rounded-full blur-3xl"></div>
-                
+
                 <div class="relative z-10 flex flex-col items-center">
-                    <div class="w-24 h-24 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-5xl text-primary mb-8 shadow-[0_0_40px_rgba(56,189,248,0.15)]">
+                    <div
+                        class="w-24 h-24 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-5xl text-primary mb-8 shadow-[0_0_40px_rgba(56,189,248,0.15)]">
                         <i class="fa-solid fa-graduation-cap"></i>
                     </div>
-                    
+
                     <h2 class="text-3xl md:text-4xl font-extrabold mb-4 text-white" data-i18n="edu_degree">
                         دبلوم في علوم حاسب
                     </h2>
-                    
+
                     <h3 class="text-xl md:text-2xl text-gray-400 font-medium mb-6">
                         <span data-i18n="edu_school">كلية الجبيل الصناعية</span>
                         <span class="mx-2 opacity-50">|</span>
-                        <span class="text-sm uppercase tracking-widest text-primary/80" data-i18n="edu_cs">Computer Science</span>
+                        <span class="text-sm uppercase tracking-widest text-primary/80" data-i18n="edu_cs">Computer
+                            Science</span>
                     </h3>
-                    
-                    <div class="inline-flex items-center gap-3 glass-btn !px-6 !py-3 !rounded-xl !bg-white/5 border-white/10 text-gray-300 pointer-events-none hover:transform-none hover:bg-white/5 hover:border-white/10 hover:shadow-none">
+
+                    <div
+                        class="inline-flex items-center gap-3 glass-btn !px-6 !py-3 !rounded-xl !bg-white/5 border-white/10 text-gray-300 pointer-events-none hover:transform-none hover:bg-white/5 hover:border-white/10 hover:shadow-none">
                         <i class="fa-regular fa-calendar-check text-primary"></i>
                         <span class="font-bold tracking-wide" data-i18n="edu_date">تاريخ التخرج: أبريل 2026</span>
                     </div>
                 </div>
             </div>
-            
+
             <footer class="mt-20 text-center text-gray-500/50 text-sm font-medium w-full">
                 &copy; <span id="year">2026</span> <span data-i18n="hero_name">تركي الشيخ</span>. All rights reserved.
             </footer>
@@ -402,4 +490,5 @@
     </main>
 
 </body>
+
 </html>
