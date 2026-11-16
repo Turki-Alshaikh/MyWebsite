@@ -78,25 +78,44 @@ const translations = {
     }
 };
 
-let currentLang = 'ar';
+// جلب اللغة المحفوظة من المتصفح أو جعل العربية هي الافتراضية
+let currentLang = localStorage.getItem('preferredLang') || 'ar';
 
-function toggleLanguage() {
-    currentLang = currentLang === 'ar' ? 'en' : 'ar';
+// دالة لتطبيق اللغة على الموقع
+function applyLanguage() {
     const htmlTag = document.documentElement;
     htmlTag.lang = currentLang;
     htmlTag.dir = currentLang === 'ar' ? 'rtl' : 'ltr';
 
+    // تحديث عنوان التبويب
+    document.title = currentLang === 'ar' 
+        ? "تركي الشيخ | أخصائي تقنية معلومات ومطور برمجيات" 
+        : "Turki Alshaikh | IT Specialist & Software Developer";
+
     document.querySelectorAll('[data-i18n]').forEach(el => {
         const key = el.getAttribute('data-i18n');
-        if (translations[currentLang][key]) {
-            // تشغيل تأثير الكتابة للاسم فقط بسرعة 60 ملي ثانية
-            if (key === 'hero_name') {
-                typeEffect(el, translations[currentLang][key], 60); 
-            } else {
-                el.innerHTML = translations[currentLang][key];
-            }
+        // نحدث جميع النصوص باستثناء الاسم لأنه يحتاج أنيميشن
+        if (translations[currentLang][key] && key !== 'hero_name') {
+            el.innerHTML = translations[currentLang][key];
         }
     });
+
+    if (globalRepos.length > 0) {
+        renderGithubProjects(globalRepos);
+    }
+}
+
+// دالة تبديل اللغة (عند الضغط على الزر)
+function toggleLanguage() {
+    currentLang = currentLang === 'ar' ? 'en' : 'ar';
+    localStorage.setItem('preferredLang', currentLang); // حفظ الاختيار في المتصفح للأبد
+    applyLanguage();
+
+    // تشغيل أنيميشن الكتابة للاسم عند تغيير اللغة
+    const heroNameEl = document.querySelector('[data-i18n="hero_name"]');
+    if(heroNameEl) {
+        typeEffect(heroNameEl, translations[currentLang]['hero_name'], 60);
+    }
 }
 
 // Active Dot Navigation based on Normal Scroll
@@ -212,7 +231,10 @@ function renderGithubProjects(repos) {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-    // تشغيل أنيميشن الكتابة للاسم عند التحميل
+    // تطبيق اللغة المحفوظة فور فتح الموقع
+    applyLanguage();
+
+    // تشغيل أنيميشن الكتابة للاسم
     const heroNameEl = document.querySelector('[data-i18n="hero_name"]');
     if(heroNameEl) {
         typeEffect(heroNameEl, translations[currentLang]['hero_name'], 60);
@@ -220,7 +242,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     setTimeout(loadGithubProjects, 300);
 });
-
 
 // دالة أنيميشن الكتابة السريعة
 function typeEffect(element, text, speed) {
