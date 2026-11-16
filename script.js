@@ -89,7 +89,12 @@ function toggleLanguage() {
     document.querySelectorAll('[data-i18n]').forEach(el => {
         const key = el.getAttribute('data-i18n');
         if (translations[currentLang][key]) {
-            el.innerHTML = translations[currentLang][key];
+            // تشغيل تأثير الكتابة للاسم فقط بسرعة 60 ملي ثانية
+            if (key === 'hero_name') {
+                typeEffect(el, translations[currentLang][key], 60); 
+            } else {
+                el.innerHTML = translations[currentLang][key];
+            }
         }
     });
 }
@@ -207,5 +212,27 @@ function renderGithubProjects(repos) {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
+    // تشغيل أنيميشن الكتابة للاسم عند التحميل
+    const heroNameEl = document.querySelector('[data-i18n="hero_name"]');
+    if(heroNameEl) {
+        typeEffect(heroNameEl, translations[currentLang]['hero_name'], 60);
+    }
+
     setTimeout(loadGithubProjects, 300);
 });
+
+
+// دالة أنيميشن الكتابة السريعة
+function typeEffect(element, text, speed) {
+    element.innerHTML = '';
+    let i = 0;
+    clearInterval(element.typingInterval); // إيقاف أي كتابة سابقة لتجنب التداخل
+    element.typingInterval = setInterval(() => {
+        if (i < text.length) {
+            element.innerHTML += text.charAt(i);
+            i++;
+        } else {
+            clearInterval(element.typingInterval);
+        }
+    }, speed);
+}
