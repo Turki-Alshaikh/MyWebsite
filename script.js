@@ -38,6 +38,7 @@ const translations = {
         edu_date: "تاريخ التخرج: أبريل 2026",
         visit_store: "الدخول للمتجر",
         ms_store: "تحميل من المتجر",
+        download_cv: "تحميل السيرة الذاتية",
     },
     en: {
         hero_name: "Turki Alshaikh",
@@ -75,6 +76,7 @@ const translations = {
         edu_date: "Graduation: April 2026",
         visit_store: "Visit Store",
         ms_store: "Microsoft Store",
+        download_cv: "Download CV",
     }
 };
 
