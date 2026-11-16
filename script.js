@@ -141,25 +141,7 @@ window.addEventListener('scroll', () => {
 });
 let globalRepos = [];
 
-// تعديل دالة تبديل اللغة
-function toggleLanguage() {
-    currentLang = currentLang === 'ar' ? 'en' : 'ar';
-    const htmlTag = document.documentElement;
-    htmlTag.lang = currentLang;
-    htmlTag.dir = currentLang === 'ar' ? 'rtl' : 'ltr';
 
-    document.querySelectorAll('[data-i18n]').forEach(el => {
-        const key = el.getAttribute('data-i18n');
-        if (translations[currentLang][key]) {
-            el.innerHTML = translations[currentLang][key];
-        }
-    });
-
-    // إعادة رسم المشاريع لتحديث رسالة "الوصف غير متاح" في حال تغيير اللغة
-    if (globalRepos.length > 0) {
-        renderGithubProjects(globalRepos);
-    }
-}
 
 const GITHUB_USER = 'Turki-Alshaikh';
 
