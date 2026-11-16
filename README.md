@@ -19,15 +19,7 @@
 - **Responsive Design:** Fully optimized for mobile, tablet, and desktop viewing[cite: 10].
 - **Zero-Dependency Architecture:** Developed using vanilla HTML, CSS, and JavaScript, with Tailwind CSS via CDN for rapid UI styling[cite: 10].
 
-## 🛠️ Tech Stack
 
-- **Structure:** HTML5[cite: 10]
-- **Styling:** Custom CSS3 & [Tailwind CSS](https://tailwindcss.com/)[cite: 10]
-- **Logic & API calls:** Vanilla JavaScript (ES6+)[cite: 10]
-- **Icons:** [FontAwesome 6](https://fontawesome.com/)[cite: 10]
-- **Fonts:** [Google Fonts](https://fonts.google.com/) ('Cairo' for Arabic, 'Outfit' for English)[cite: 10]
-
- 
 ## 👨‍💻 Author
 
 **Turki Alshaikh**
